@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div class="mt-2 text-white bg-dark rounded p-3">{{ $user }}</div>
                 </div>
             </div>
         </div>
