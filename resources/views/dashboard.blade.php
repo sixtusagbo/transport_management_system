@@ -5,7 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{request()->url()}}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/drivers')}}">Drivers</a>
+                        </li>
+                    </ul>    
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,9 +22,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
-                    <div class="mt-2 text-white bg-dark rounded p-3">{{ $user }}</div>
+                    
+                    <div class="jumbotron">
+                        <p class="jumbotron-text">{{ $user }}</p>
+                    </div>
                 </div>
             </div>
         </div>

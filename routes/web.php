@@ -21,3 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard/drivers', [App\Http\Controllers\DashboardController::class, 'drivers']);
+
+Route::resource('drivers', 'App\Http\Controllers\DriversController');

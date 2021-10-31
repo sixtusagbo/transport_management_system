@@ -79,5 +79,8 @@
             @yield('content')
         </main>
     </div>
+    @if (request()->is('drivers'))
+        <script src="{{ asset('js/lga.min.js') }}"></script>
+    @endif
 </body>
 </html>
