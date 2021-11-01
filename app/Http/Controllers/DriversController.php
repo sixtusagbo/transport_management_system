@@ -37,7 +37,40 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // $table->string('first_name');
+        // $table->string('last_name');
+        // $table->date('dob');
+        // $table->text('address');
+        // $table->string('phone_number');
+        // $table->tinyText('state');
+        // $table->tinyText('lga');
+        // $table->string('experience');
+        
+        // Validate request details
+        $this->validate($request, [
+            'f_name' => 'required',
+            'l_name' => 'required',
+            'dob' => 'required',
+            'address' => 'required',
+            'phone' => 'required|digits:11',
+            'state' => 'required',
+            'lga' => 'required',
+            'experience' => 'required',
+        ]);
+        
+        // Add driver
+        $driver = new Driver;
+        $driver->first_name = $request->input('f_name');
+        $driver->last_name = $request->input('l_name');
+        $driver->dob = $request->input('dob');
+        $driver->address = $request->input('address');
+        $driver->phone_number = $request->input('phone');
+        $driver->state = $request->input('state');
+        $driver->lga = $request->input('lga');
+        $driver->experience = $request->input('experience');
+        $driver->save();
+        
+        return redirect('/drivers')->with('success', 'A new driver was successfully added!');
     }
 
     /**
