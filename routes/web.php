@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,12 +16,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingPage');
 });
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('myDashboard');
 // Route::get('/dashboard/drivers', [App\Http\Controllers\DashboardController::class, 'drivers']);
 
 Route::resource('drivers', 'App\Http\Controllers\DriversController');
+
+//for registration
+Route::get('register', [RegisterController::class, 'register']);
+
+//for login
+Route::get('login', [RegisterController::class, 'login']);
+
+//for dashbord
+// Route::get('/dashboard', 'DashboardController@mainDashboard')->name('dashboard');
+// Route::get('dashboard', [DashboardController::class, 'mainDashboard']);
+
+Route::get('/dashboard', function () {
+    return view('myDashboard');
+});
