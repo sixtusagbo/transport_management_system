@@ -70,4 +70,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    protected function register(){
+        return view('auth.signUp');
+    }
+
+    protected function login(){
+        return view('auth.signIn');
+    }
 }
