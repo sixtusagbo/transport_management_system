@@ -25,6 +25,7 @@ Auth::routes();
 // Route::get('/dashboard/drivers', [App\Http\Controllers\DashboardController::class, 'drivers']);
 
 Route::resource('drivers', 'App\Http\Controllers\DriversController');
+<<<<<<< Updated upstream
 
 //for registration
 Route::get('register', [RegisterController::class, 'register']);
@@ -39,3 +40,6 @@ Route::get('login', [RegisterController::class, 'login']);
 Route::get('/dashboard', function () {
     return view('myDashboard');
 });
+=======
+Route::resource('vehicles', 'App\Http\Controllers\VehiclesController');
+>>>>>>> Stashed changes

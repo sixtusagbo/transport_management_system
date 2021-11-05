@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
-class DriversController extends Controller
+class VehiclesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,14 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
+        $drivers = Driver::pluck('first_name', 'id');
         
-        return view('dashboard.drivers')->with('drivers', $drivers);
+        $data = [
+            'drivers' => $drivers,
+            'vehicles' => Vehicle::all(),
+        ];
+        
+        return view('dashboard.vehicles', compact('drivers'))->with($data);
     }
 
     /**
@@ -37,31 +43,19 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO: Get a default status for every new vehicle being added
+        // TODO: 0 - Loading , 1 - Active, 2 - Disabled
         // Validate request details
-        $this->validate($request, [
-            'f_name' => 'required',
-            'l_name' => 'required',
-            'dob' => 'required',
-            'address' => 'required',
-            'phone' => 'required|digits:11',
-            'state' => 'required',
-            'lga' => 'required',
-            'experience' => 'required',
+        $newVehicle = $request->validate([
+            'name' => 'required',
+            'model' => 'required',
+            'plate_number' => 'required|min:7|max:8|alpha_num',
+            'seats' => 'required|digits:2|between:14,25|numeric',
+            // 'status' => 'required|digits:2|max:30|min:14',
+            'driver_id' => 'required',
         ]);
         
-        // Add driver
-        $driver = new Driver;
-        $driver->first_name = $request->input('f_name');
-        $driver->last_name = $request->input('l_name');
-        $driver->dob = $request->input('dob');
-        $driver->address = $request->input('address');
-        $driver->phone_number = $request->input('phone');
-        $driver->state = $request->input('state');
-        $driver->lga = $request->input('lga');
-        $driver->experience = $request->input('experience');
-        $driver->save();
-        
-        return redirect('/drivers')->with('success', 'A new driver was successfully added!');
+        return $newVehicle;
     }
 
     /**
