@@ -24,4 +24,12 @@ class Driver extends Model
         'lga',
         'experience',
     ];
+    
+    /**
+     * Get the vehicle that owns the phone.
+     */
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
 }

@@ -13,6 +13,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/drivers')}}">Drivers</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/vehicles')}}">Vehicles</a>
+                        </li>
                     </ul>    
                 </div>
 
