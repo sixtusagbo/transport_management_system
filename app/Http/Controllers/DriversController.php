@@ -50,7 +50,7 @@ class DriversController extends Controller
         ]);
         
         // Add driver
-        $driver = new Driver;
+        $driver = new Driver();
         $driver->first_name = $request->input('f_name');
         $driver->last_name = $request->input('l_name');
         $driver->dob = $request->input('dob');
