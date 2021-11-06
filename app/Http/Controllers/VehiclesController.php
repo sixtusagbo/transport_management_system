@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Driver;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 
 class VehiclesController extends Controller
 {
@@ -43,8 +43,6 @@ class VehiclesController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Get a default status for every new vehicle being added
-        // TODO: 0 - Loading , 1 - Active, 2 - Disabled
         // Validate request details
         $newVehicle = $request->validate([
             'name' => 'required',
@@ -55,7 +53,16 @@ class VehiclesController extends Controller
             'driver_id' => 'required',
         ]);
         
-        return $newVehicle;
+        $vehicle = new Vehicle();
+        $vehicle->name = $newVehicle['name'];
+        $vehicle->model = $newVehicle['model'];
+        $vehicle->plate_number = $newVehicle['plate_number'];
+        $vehicle->no_of_seats = $newVehicle['seats'];
+        $vehicle->status = 0; // *Important: 0 - Loading , 1 - Idle, 2 - Active
+        $vehicle->driver_id = $newVehicle['driver_id'];
+        $vehicle->save();
+        
+        return redirect('/vehicles')->with('success', 'A new vehicle was successfully added!');
     }
 
     /**

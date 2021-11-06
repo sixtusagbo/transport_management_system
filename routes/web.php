@@ -26,17 +26,21 @@ Auth::routes();
 
 Route::resource('drivers', 'App\Http\Controllers\DriversController');
 
-//for registration
-Route::get('register', [RegisterController::class, 'register']);
+// ! Remove this routes from here
+// for registration
+// Route::get('register', [RegisterController::class, 'register']);
 
-//for login
-Route::get('login', [RegisterController::class, 'login']);
+// for login
+// Route::get('login', [RegisterController::class, 'login']);
 
 //for dashbord
 // Route::get('/dashboard', 'DashboardController@mainDashboard')->name('dashboard');
-// Route::get('dashboard', [DashboardController::class, 'mainDashboard']);
+Route::get('dashboard', [DashboardController::class, 'mainDashboard']);
 
-Route::get('/dashboard', function () {
-    return view('myDashboard');
-});
+// TODO: Edit here in it's file
+// Route::get('/dashboard', function () {
+//     return view('myDashboard');
+// });
+// ! to here
+
 Route::resource('vehicles', 'App\Http\Controllers\VehiclesController');

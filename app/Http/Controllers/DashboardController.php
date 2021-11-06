@@ -31,8 +31,8 @@ class DashboardController extends Controller
         return view('myDashboard');
     }
 
-    // public function mainDashboard()
-    // {
-    //     return view('myDashboard');
-    // }
+    public function mainDashboard()
+    {
+        return view('myDashboard');
+    }
 }
