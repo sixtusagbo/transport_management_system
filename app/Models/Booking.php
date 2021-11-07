@@ -9,16 +9,16 @@ class Booking extends Model
 {
     use HasFactory;
     
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'user_id',
+        'user_id', //! from login i.e auth->user->id
         'depature_date',
-        'seat_no', //? Pick from dropdown available seats or auto gen
-        'destination_id',
+        'seat_no', //! Auto gen
+        'destination_id', //! Pick from dropdown
         'ticket_no', //! Auto Gen
     ];
     
