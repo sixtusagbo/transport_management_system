@@ -13,87 +13,39 @@
             <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
             <div class="card card-plain" style="border: none;">
                 <div class="card-header" style="background-color: transparent;">
-                <h4 class="font-weight-bolder text-dark" style="text-align: center;font-size:3em;"> BOOK A TRIP</h4>
+                <h4 class="font-weight-bolder text-dark" style="text-align: center;font-size:3em;"> REGISTER</h4>
                 {{-- <p class="mb-0">Enter your email and password to register</p> --}}
                 </div>
                 <div class="card-body">
                 
-                    <!-- <h5>Simple Tabs</h5> -->
-                    <div class="divider-25 d-none d-xl-block"></div>
-                    <!-- tabs start -->
-                    <ul class="nav nav-tabs" role="tablist" style="justify-content: space-around">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab01" data-toggle="tab" href="#tab01_pane" role="tab" aria-controls="tab01_pane" aria-expanded="true">Information</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab02" data-toggle="tab" href="#tab02_pane" role="tab" aria-controls="tab02_pane">Book A Trip</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab01_pane" role="tabpanel" aria-labelledby="tab01">
 
-                        <div class="tab-pane fade show active" id="tab01_pane" role="tabpanel" aria-labelledby="tab01">
-
-                            <h5>PERSONAL INFORMATION</h5>
-                            <form role="form">
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control">
-                            </div>
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control">
-                            </div>
-                            <div class="form-check form-check-info text-start ps-0">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                                <label class="form-check-label" for="flexCheckDefault">
-                                I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                </label>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
-                            </div>
-                            </form>
-
+                        {{-- <h5>PERSONAL INFORMATION</h5> --}}
+                        <form role="form">
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
                         </div>
-
-                        <div class="tab-pane fade" id="tab02_pane" role="tabpanel" aria-labelledby="tab02">
-
-                            <h5>BOOK A TRIP</h5>
-                            
-                            <form role="form">
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control">
-                            </div>
-                            <div class="input-group input-group-outline mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control">
-                            </div>
-                            <div class="form-check form-check-info text-start ps-0">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                                <label class="form-check-label" for="flexCheckDefault">
-                                I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                </label>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
-                            </div>
-                            </form>
-
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
                         </div>
-
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="form-check form-check-info text-start ps-0">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                            <label class="form-check-label" for="flexCheckDefault">
+                            I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
+                        </div>
+                        </form>
 
                     </div>
-                    <!-- tabs end-->
-                
                 
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1" style="border: none;">
