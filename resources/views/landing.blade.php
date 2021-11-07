@@ -159,7 +159,7 @@
 													<p class="text-uppercase intro_after_featured_word">In God we trust</p>
 												</div>
 												<div class="intro_layer page-bottom animate" data-animation="pullDown">
-													<a class="btn btn-maincolor" href="{{ route('login') }}"> Book a Trip</a>
+													<a class="btn btn-maincolor" href="{{ route('register') }}"> Book a Trip</a>
 												</div>
 												<div class="intro_layer page-bottom animate" data-animation="pullDown">
 													<a class="btn btn-success" href="{{ route('login') }}"> Send Cargo </a>
