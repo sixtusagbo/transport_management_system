@@ -16,31 +16,13 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', function () {
-    return view('landingPage');
+    return view('landing');
 });
-
-Auth::routes();
-
-// Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('myDashboard');
-// Route::get('/dashboard/drivers', [App\Http\Controllers\DashboardController::class, 'drivers']);
 
 Route::resource('drivers', 'App\Http\Controllers\DriversController');
 
-// ! Remove this routes from here
-// for registration
-// Route::get('register', [RegisterController::class, 'register']);
-
-// for login
-// Route::get('login', [RegisterController::class, 'login']);
-
-//for dashbord
-// Route::get('/dashboard', 'DashboardController@mainDashboard')->name('dashboard');
-Route::get('dashboard', [DashboardController::class, 'mainDashboard']);
-
-// TODO: Edit here in it's file
-// Route::get('/dashboard', function () {
-//     return view('myDashboard');
-// });
-// ! to here
-
 Route::resource('vehicles', 'App\Http\Controllers\VehiclesController');
+
+Auth::routes();
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
