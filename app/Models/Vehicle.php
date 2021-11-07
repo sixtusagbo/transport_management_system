@@ -39,4 +39,12 @@ class Vehicle extends Model
     {
         return $this->hasMany(Booking::class);
     }
+    
+    /**
+     * Get the destination associated with the vehicle.
+     */
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }
