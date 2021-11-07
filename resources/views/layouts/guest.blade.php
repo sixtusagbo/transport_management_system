@@ -19,42 +19,50 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.0')}}" rel="stylesheet" />
+  @if (request()->is('register'))
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+         {{-- <link rel="stylesheet" href="css/animations.css">  --}}
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/main.css')}}" class="color-switcher-link">
+  @endif
 </head>
 
 <body class="bg-gray-200">
-  <div class="container position-sticky z-index-sticky top-0">
-    <div class="row">
-      <div class="col-12">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-          <div class="container-fluid ps-2 pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="#">
-              Transport Mgt System
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon mt-2">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
-                
-               
-                <li class="nav-item">
+  @if (request()->is('login'))
+    <div class="container position-sticky z-index-sticky top-0">
+      <div class="row">
+        <div class="col-12">
+          <!-- Navbar -->
+          <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+            <div class="container-fluid ps-2 pe-0">
+              <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="#">
+                Transport Mgt System
+              </a>
+              <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </span>
+              </button>
+              <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav mx-auto">
                   
-                </li>
-              </ul>
-             
+                
+                  <li class="nav-item">
+                    
+                  </li>
+                </ul>
+              
+              </div>
             </div>
-          </div>
-        </nav>
-        <!-- End Navbar -->
+          </nav>
+          <!-- End Navbar -->
+        </div>
       </div>
     </div>
-  </div>
-  <main class="main-content  mt-0">
+  @endif
+  <main class="main-content mt-0">
     @yield('content')
   </main>
   <!--   Core JS Files   -->
@@ -75,6 +83,10 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
+  @if (request()->is('register'))
+    <script src="{{ asset('js/compressed.js')}}"></script>
+    <script src="{{ asset('js/main.js')}}"></script>
+  @endif
 </body>
 
 </html>
