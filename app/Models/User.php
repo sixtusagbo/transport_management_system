@@ -46,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    /**
+     * Get the booking associated with the user(passenger).
+     */
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    
+    // TODO: Have a hasMany relationship with CargoBooking
 }

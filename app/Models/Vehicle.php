@@ -32,5 +32,11 @@ class Vehicle extends Model
         return $this->hasOne(Driver::class);
     }
     
-    // TODO: Get the number of booked tickets on the vehicle.
+    /**
+     * Get the booking associated with the vehicle.
+     */
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
