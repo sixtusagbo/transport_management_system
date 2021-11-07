@@ -38,5 +38,11 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
     
-    // TODO: Have a hasOne relationship with Destination
+    /**
+     * Get the destination associated with the booking.
+     */
+    public function destination()
+    {
+        return $this->hasOne(Destination::class);
+    }
 }
