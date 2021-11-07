@@ -55,5 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class);
     }
     
-    // TODO: Have a hasMany relationship with CargoBooking
+    /**
+     * Get the cargoBooking associated with the user(passenger).
+     */
+    public function cargoBooking()
+    {
+        return $this->hasMany(CargoBooking::class);
+    }
 }
