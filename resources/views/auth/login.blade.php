@@ -17,10 +17,10 @@
                     <form method="POST" action="{{ route('login') }}" class="text-start">
                         @csrf
                         <div class="input-group input-group-outline my-3">
-                            <label class="form-label">Email</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus>
+                            <label class="form-label">Phone number</label>
+                            <input id="phone_number" type="phone_number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" required autocomplete="phone_number" autofocus>
                             
-                            @error('email')
+                            @error('phone_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
