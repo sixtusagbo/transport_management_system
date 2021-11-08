@@ -49,7 +49,6 @@ class VehiclesController extends Controller
             'model' => 'required',
             'plate_number' => 'required|min:7|max:8|alpha_num',
             'seats' => 'required|digits:2|between:14,25|numeric',
-            // 'status' => 'required|digits:2|max:30|min:14',
             'driver_id' => 'required',
         ]);
         

@@ -171,9 +171,6 @@
 										<!-- eof .intro_layers_wrapper -->
 									</div>
 									<!-- eof .col-* -->
-									<div class="flexslider-bottom d-none d-xl-block">
-										<a href="#about" class="mouse-button animated floating"></a>
-									</div>
 								</div>
 								<!-- eof .row -->
 							</div>

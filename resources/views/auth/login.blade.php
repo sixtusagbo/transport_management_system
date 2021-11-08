@@ -18,7 +18,7 @@
                         @csrf
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Phone number</label>
-                            <input id="phone_number" type="phone_number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" required autocomplete="phone_number" autofocus>
+                            <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" required autocomplete="phone_number" autofocus>
                             
                             @error('phone_number')
                                 <span class="invalid-feedback" role="alert">
