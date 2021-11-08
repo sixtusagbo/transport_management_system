@@ -19,12 +19,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.0')}}" rel="stylesheet" />
-  @if (request()->is('register'))
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
-         {{-- <link rel="stylesheet" href="css/animations.css">  --}}
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.css')}}">
-        <link rel="stylesheet" href="{{ asset('css/main.css')}}" class="color-switcher-link">
-  @endif
+  
 </head>
 
 <body class="bg-gray-200">
