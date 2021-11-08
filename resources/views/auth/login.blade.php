@@ -43,12 +43,12 @@
                         <div class="text-center">
                             <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                         </div>
-                        @if (Route::has('password.request'))
+                        {{-- @if (Route::has('password.request'))
                             <p class="mt-4 text-sm text-center">
                                 Forgot Your Password?
                                 <a href="{{ route('password.request') }}" class="text-primary text-gradient font-weight-bold">Reset password</a>
                             </p>
-                        @endif
+                        @endif --}}
                         <p class="mt-4 text-sm text-center">
                             Don't have an account?
                             <a href="{{ url('register')}}" class="text-primary text-gradient font-weight-bold">Sign up</a>
