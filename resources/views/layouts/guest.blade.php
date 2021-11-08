@@ -58,6 +58,9 @@
     </div>
   @endif
   <main class="main-content mt-0">
+    @if (request()->is('register'))      
+      @include('inc.messages')
+    @endif
     @yield('content')
   </main>
   <!--   Core JS Files   -->
