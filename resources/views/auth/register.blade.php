@@ -1,7 +1,6 @@
 @extends('layouts.guest')
 
 @section('content')
-{{-- <section> --}}
     <div class="page-header min-vh-100">
         <div class="container">
         <div class="row">
@@ -13,14 +12,10 @@
             <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
             <div class="card card-plain" style="border: none;">
                 <div class="card-header" style="background-color: transparent;">
-                <h4 class="font-weight-bolder text-dark" style="text-align: center;font-size:3em;"> REGISTER</h4>
-                {{-- <p class="mb-0">Enter your email and password to register</p> --}}
+                <h4 class="font-weight-bolder text-dark" style="text-align: center;font-size:3em;"> SIGN UP</h4>
                 </div>
                 <div class="card-body">
                 
-                    <div class="tab-pane fade show active" id="tab01_pane" role="tabpanel" aria-labelledby="tab01">
-
-                        {{-- <h5>PERSONAL INFORMATION</h5> --}}
                         <form role="form">
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label">Name</label>
@@ -45,7 +40,6 @@
                         </div>
                         </form>
 
-                    </div>
                 
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1" style="border: none;">
@@ -59,5 +53,4 @@
         </div>
         </div>
     </div>
-{{-- </section> --}}
 @endsection
