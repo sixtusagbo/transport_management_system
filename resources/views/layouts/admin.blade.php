@@ -13,6 +13,8 @@
   <!-- Nucleo Icons -->
   <link href="{{ asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="{{ asset('assets/css/material-icon.css')}}" rel="stylesheet">
   <!-- CSS Files -->
@@ -74,19 +76,19 @@
         <nav aria-label="breadcrumb">
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-              </div>
-
-         
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          </div>
+          
+          
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
               <a href="{{ route('logout') }}" onclick="event.preventDefault();
                document.getElementById('logout-form').submit();" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">{{ __('Logout') }}</span>
+                <i class="fa fa-sign-out-alt me-sm-1"></i>
+                <span class="d-sm-inline d-none">{{ __('Sign out') }}</span>
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
+                @csrf
               </form>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -98,13 +100,8 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0">
-                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-              </a>
-            </li>
             
-             
+            
           </ul>
         </div>
       </div>
@@ -130,12 +127,35 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="{{ asset('js/github_buttons.js')}}"></script>
   <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
   @if (request()->is('users'))
     <script src="{{ asset('js/compressed.js')}}"></script>
     <script src="{{ asset('js/main.js')}}"></script>
+    <script>
+      $('.editUserBtn').click(function(e){
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var url = '/users/' + id + '/edit';
+        var callback = function (response) {
+          $('#editUserModalBody').html(response);
+        };
+    
+        $.get(url, callback);
+    
+      });
+      $('.deleteUserBtn').click(function(e){
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var url = '/users/' + id + '/showToRemove';
+        var callback = function (response) {
+          $('#deleteUserModalBody').html(response);
+        };
+    
+        $.get(url, callback);
+    
+      });
+    </script>
   @endif
 </body>
 

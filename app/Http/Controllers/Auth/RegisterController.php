@@ -62,7 +62,6 @@ class RegisterController extends Controller
             'gender' => 'required|string|min:4|max:6|alpha',
             'address' => 'required|string|max:255',
             'emergency' => 'required|digits:11|numeric',
-            // 'type' => 'numeric',
         ]);
     }
 
