@@ -29,9 +29,9 @@
                             <div class="d-flex px-2 py-1">
                               <div>
                                 @if ($user->gender == 'Male')  
-                                  <img src="../images/male.jpg" class="avatar avatar-md me-3" alt="{{$user->gender}}">
+                                  <img src="../images/male.jpg" class="avatar avatar-sm me-3" alt="{{$user->gender}}">
                                 @else
-                                  <img src="../images/female.jpg" class="avatar avatar-md me-3" alt="{{$user->gender}}">
+                                  <img src="../images/female.jpg" class="avatar avatar-sm me-3" alt="{{$user->gender}}">
                                 @endif
                               </div>
                               <div class="d-flex flex-column justify-content-center">
@@ -55,10 +55,10 @@
                             <span class="text-secondary text-xs font-weight-bold">{{$user->emergency}}</span>
                           </td>
                           <td class="align-middle text-center">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs">
+                            <a href="" class="text-secondary font-weight-bold text-xs editUserBtn" data-toggle="modal" data-target="#editUserModal" data-id="{{$user->id}}">
                               <i class="material-icons opacity-10 text-info">edit</i>
                             </a>
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs">
+                            <a href="" class="text-secondary font-weight-bold text-xs deleteUserBtn" data-toggle="modal" data-target="#deleteUserModal" data-id="{{$user->id}}">
                               <i class="material-icons opacity-10 text-danger">delete</i>
                             </a>
                           </td>
@@ -76,13 +76,9 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                {{-- <div class="card-header">
-                  <h4 class="dispay-4 text-primary">Create New User</h4>
-                </div> --}}
-
                 <div class="card-body">
                   <h4 class="dispay-4 text-primary">Create New User</h4>
-                  <form role="form" method="POST" action="{{ route('users') }}">
+                  <form role="form" method="POST" action="{{ route('add_user') }}">
                       @csrf
                       <div class="input-group input-group-outline mb-3">
                           <label class="form-label">First Name</label>
@@ -122,9 +118,9 @@
                           Your password must be 6 characters long.
                       </small>
                       <div class="form-check form-check-inline text-start ps-0">
-                          <input class="form-check-input" type="radio" name="gender" value="1" id="1">
+                          <input class="form-check-input" type="radio" name="type" value="1" id="1">
                           <label class="form-check-label" for="1">Admin</label>
-                          <input class="form-check-input" type="radio" name="gender" value="0" id="0" checked>
+                          <input class="form-check-input" type="radio" name="type" value="0" id="0" checked>
                           <label class="form-check-label" for="0">Passenger</label>
                       </div>
                       <div class="input-group input-group-outline mt-3 mb-3">
@@ -153,4 +149,51 @@
             </div>
         </div>
     </div>
+    
+<!-- Edit User Modal-->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title text-primary">Edit User</h4>
+              <a class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <i class="material-icons opacity-10 text-info" style="font-size: 2.0em">&times</i>
+              </a>
+          </div>
+          <div class="modal-body" id="editUserModalBody">
+          
+          </div>
+          <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-sm btn-primary" onclick="$('#editUserForm').submit()"> Save</button>
+                    </div>
+                </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Delete User Modal-->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title text-secondary">Confirm delete user!</h4>
+              <a class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <i class="material-icons opacity-10 text-info" style="font-size: 2.0em">&times</i>
+              </a>
+          </div>
+          <div class="modal-body" id="deleteUserModalBody">
+            
+          </div>
+          <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-sm btn-danger" onclick="$('#deleteUserForm').submit()"> Yes</button>
+                    </div>
+                </div>
+          </div>
+      </div>
+  </div>
+</div>
 @endsection

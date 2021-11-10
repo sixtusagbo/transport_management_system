@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +20,23 @@ Route::get('/', function () {
     return view('landing');
 });
 
+// UsersController routes
+Route::get('/users', [App\Http\Controllers\UsersController::class, 'index']);
+Route::post('/users', [App\Http\Controllers\UsersController::class, 'store'])->name('add_user');
+Route::get('/users/{user}/edit', [App\Http\Controllers\UsersController::class, 'edit']);
+Route::get('/users/{user}/showToRemove', [App\Http\Controllers\UsersController::class, 'showToRemove']);
+Route::put('/users/{user}', [App\Http\Controllers\UsersController::class, 'update']);
+Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy']);
+
+//! Remove all resource routes
+// DriversController routes
 Route::resource('drivers', 'App\Http\Controllers\DriversController');
 
+// VehiclesController
 Route::resource('vehicles', 'App\Http\Controllers\VehiclesController');
 
+// Authenticaton routes
 Auth::routes();
 
+// Dashboard route
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-Route::get('/users', [App\Http\Controllers\DashboardController::class, 'users'])->name('users');
