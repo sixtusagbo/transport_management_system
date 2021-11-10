@@ -8,12 +8,27 @@ use Illuminate\Http\Request;
 class DriversController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
         $drivers = Driver::all();
         
         return view('dashboard.drivers')->with('drivers', $drivers);
@@ -37,6 +52,11 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
         // Validate request details
         $this->validate($request, [
             'f_name' => 'required',

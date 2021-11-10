@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.passenger')
 
 @section('content')
     <div class="row">

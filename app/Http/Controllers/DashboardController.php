@@ -27,12 +27,32 @@ class DashboardController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        return view('dashboard')->with('user', $user);
-        // return view('myDashboard');
+        
+        //* Show differrent dashboards depending on the type of user
+        if ($user->type == 1) {
+            return view('admin_dashboard')->with('user', $user);
+        } else if ($user->type == 0) {
+            return view('passenger_dashboard')->with('user', $user);
+        }
     }
-
-    // public function mainDashboard()
-    // {
-    //     return view('myDashboard');
-    // }
+    
+    /**
+     * Show the users on the admin dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function users()
+    {
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
+        }
+        
+        return view('dashboard.users')->with('users', $users);
+    }
 }
