@@ -9,12 +9,27 @@ use App\Models\Vehicle;
 class VehiclesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
         $drivers = Driver::pluck('first_name', 'id');
         
         $data = [
@@ -43,6 +58,11 @@ class VehiclesController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
         // Validate request details
         $newVehicle = $request->validate([
             'name' => 'required',
