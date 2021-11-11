@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,12 +25,13 @@ Route::get('/users/{user}/showToRemove', [App\Http\Controllers\UsersController::
 Route::put('/users/{user}', [App\Http\Controllers\UsersController::class, 'update']);
 Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy']);
 
-//! Remove all resource routes
 // DriversController routes
-Route::resource('drivers', 'App\Http\Controllers\DriversController');
+Route::get('/drivers', [App\Http\Controllers\DriversController::class, 'index']);
+Route::post('/drivers', [App\Http\Controllers\DriversController::class, 'store'])->name('add_driver');
 
-// VehiclesController
-Route::resource('vehicles', 'App\Http\Controllers\VehiclesController');
+// VehiclesController routes
+Route::get('/vehicles', [App\Http\Controllers\VehiclesController::class, 'index']);
+Route::post('/vehicles', [App\Http\Controllers\VehiclesController::class, 'store'])->name('add_vehicle');
 
 // Authenticaton routes
 Auth::routes();
