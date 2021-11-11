@@ -62,7 +62,7 @@
     </div>
     <div class="form-group mt-3 mb-3">
         <label class="form-label">Date of Birth</label>
-        <input type="text" style="width: 100%;border-radius:0.375rem;border:1px solid #d2d6da;padding:0.4rem 0.3rem;background-color:transparent;" name="dob" onfocus="(this.type='date');this.style.borderColor = '#e91e63';this.style.borderTopColor = 'transparent';this.style.boxShadow = 'inset 1px 0 #e91e63, inset -1px 0 #e91e63, inset 0 -1px #e91e63';" onblur="(this.type='text');" required value="{{$user->dob}}">
+        <input type="text" style="width: 100%;border-radius:0.375rem;border:1px solid #d2d6da;padding:0.4rem 0.3rem;background-color:transparent;" name="dob" onfocus="(this.type='date');this.style.borderColor = '#e91e63';this.style.borderTopColor = 'transparent';this.style.boxShadow = 'inset 1px 0 #e91e63, inset -1px 0 #e91e63, inset 0 -1px #e91e63';" onblur="(this.type='text');" required value="{{$user->dob}}"  max="{{\Carbon\Carbon::now()->toDateString()}}">
     </div>
     <div class="form-group mb-3">
         <label class="form-label">Emergency contact</label>

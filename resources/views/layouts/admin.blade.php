@@ -19,6 +19,9 @@
   <link href="{{ asset('assets/css/material-icon.css')}}" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.0')}}" rel="stylesheet" />
+@if (request()->is('drivers'))
+  <script src="{{ asset('js/lga.min.js')}}"></script>
+@endif
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -51,7 +54,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{url('/drivers')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">electric_rickshaw</i>
+              <i class="material-icons opacity-10">airport_shuttle</i>
             </div>
             <span class="nav-link-text ms-1">Drivers</span>
           </a>
@@ -59,7 +62,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{url('/vehicles')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">receipt_long</i>
+              <i class="material-icons opacity-10">electric_rickshaw</i>
             </div>
             <span class="nav-link-text ms-1">Vehicles</span>
           </a>
@@ -112,51 +115,7 @@
       @yield('content')
     </div>
   </main>
-  <!--   Core JS Files   -->
-  <script src="{{ asset('assets/js/core/popper.min.js')}}"></script>
-  <script src="{{ asset('assets/js/core/bootstrap.min.js')}}"></script>
-  <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
-  <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
- 
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <script src="{{ asset('js/github_buttons.js')}}"></script>
-  <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
-  @if (request()->is('users'))
-    <script src="{{ asset('js/compressed.js')}}"></script>
-    <script src="{{ asset('js/main.js')}}"></script>
-    <script>
-      $('.editUserBtn').click(function(e){
-        e.preventDefault();
-        var id = $(this).attr('data-id');
-        var url = '/users/' + id + '/edit';
-        var callback = function (response) {
-          $('#editUserModalBody').html(response);
-        };
-    
-        $.get(url, callback);
-    
-      });
-      $('.deleteUserBtn').click(function(e){
-        e.preventDefault();
-        var id = $(this).attr('data-id');
-        var url = '/users/' + id + '/showToRemove';
-        var callback = function (response) {
-          $('#deleteUserModalBody').html(response);
-        };
-    
-        $.get(url, callback);
-    
-      });
-    </script>
-  @endif
+  @include('inc.scripts')
 </body>
 
 </html>
