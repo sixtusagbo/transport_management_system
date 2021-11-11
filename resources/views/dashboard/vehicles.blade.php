@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -6,21 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                  <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/dashboard')}}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('drivers')}}">Drivers</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="{{request()->url()}}">Vehicles</a>
-                  </li>
-                </ul> 
+                  
                 </div>
 
                 <div class="card-body">
-                    <div class="jumbotron">{{ $vehicles }}</div>
+                    {{ $vehicles }}
                 </div>
             </div>
         </div>
