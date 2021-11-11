@@ -60,13 +60,13 @@ class UsersController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'required|string|max:255',
-            'phone_number' => 'required|digits:11|numeric|unique:users',
+            'phone_number' => 'required|numeric|unique:users',
             'email' => 'required|string|email|max:255',
             'password' => ['required', 'confirmed', Password::min(6)],
             'dob' => 'required|string|date|before:'.Carbon::today(),
             'gender' => 'required|string|min:4|max:6|alpha',
             'address' => 'required|string|max:255',
-            'emergency' => 'required|digits:11|numeric',
+            'emergency' => 'required|numeric',
             'type' => 'numeric',
         ]);
         
@@ -138,13 +138,13 @@ class UsersController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'required|string|max:255',
-            'phone_number' => 'required|digits:11|numeric',
+            'phone_number' => 'required',
             'email' => 'required|string|email|max:255',
             'password' => ['required', 'confirmed', Password::min(6)],
             'dob' => 'required|string|date|before:'.Carbon::today(),
             'gender' => 'required|string|min:4|max:6|alpha',
             'address' => 'required|string|max:255',
-            'emergency' => 'required|digits:11|numeric',
+            'emergency' => 'required',
             'type' => 'numeric',
         ]);
         

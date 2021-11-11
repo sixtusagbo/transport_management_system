@@ -22,7 +22,7 @@ class CreateDriversTable extends Migration
             $table->string('phone_number');
             $table->tinyText('state');
             $table->tinyText('lga');
-            $table->string('experience');
+            $table->tinyInteger('experience');
             $table->timestamps();
         });
     }

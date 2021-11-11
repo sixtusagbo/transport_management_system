@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DriversController extends Controller
@@ -29,7 +30,10 @@ class DriversController extends Controller
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
         
-        $drivers = Driver::all();
+        $drivers = Driver::orderBy('first_name', 'asc')->get();
+        foreach ($drivers as $driver) {
+            $driver->full_name = $driver->first_name.' '.$driver->last_name;
+        }
         
         return view('dashboard.drivers')->with('drivers', $drivers);
     }
@@ -63,10 +67,10 @@ class DriversController extends Controller
             'l_name' => 'required',
             'dob' => 'required',
             'address' => 'required',
-            'phone' => 'required|digits:11',
+            'phone' => 'required',
             'state' => 'required',
             'lga' => 'required',
-            'experience' => 'required',
+            'experience' => 'required|numeric|min:1|max:15',
         ]);
         
         // Add driver
@@ -85,14 +89,17 @@ class DriversController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the driver to be deleted.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showToRemove($id)
     {
-        //
+        $driver = Driver::find($id);
+        $driver->full_name = $driver->first_name.' '.$driver->last_name;
+        
+        return view('dashboard.modify.delete_driver')->with('driver', $driver);
     }
 
     /**
@@ -103,11 +110,13 @@ class DriversController extends Controller
      */
     public function edit($id)
     {
-        //
+        $driver = Driver::find($id);
+        
+        return view('dashboard.modify.edit_driver')->with('driver', $driver);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the driver in dbase.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -115,7 +124,38 @@ class DriversController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request; //! Test case
+        
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
+        // Validate request details
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'dob' => 'required|string|date|before:'.Carbon::today(),
+            'address' => 'required|string|max:255',
+            'phone_number' => 'required',
+            'state' => 'required|string|max:255',
+            'lga' => 'required|string|max:255',
+            'experience' => 'required',
+        ]);
+        
+        // Add new driver to dbase
+        $driver = Driver::find($id);
+        $driver->first_name = $data['first_name'];
+        $driver->last_name = $data['last_name'];
+        $driver->dob = $data['dob'];
+        $driver->address = $data['address'];
+        $driver->phone_number = $data['phone_number'];
+        $driver->state = $data['state'];
+        $driver->lga = $data['lga'];
+        $driver->experience = $data['experience'];
+        $driver->update();
+        
+        return redirect('/drivers')->with('success', 'Driver details updated!');
     }
 
     /**
