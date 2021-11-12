@@ -31,6 +31,7 @@ Route::post('/drivers', [App\Http\Controllers\DriversController::class, 'store']
 Route::get('/drivers/{driver}/edit', [App\Http\Controllers\DriversController::class, 'edit']);
 Route::get('/drivers/{driver}/showToRemove', [App\Http\Controllers\DriversController::class, 'showToRemove']);
 Route::put('/drivers/{driver}', [App\Http\Controllers\DriversController::class, 'update']);
+Route::delete('/drivers/{driver}', [App\Http\Controllers\DriversController::class, 'destroy']);
 
 // VehiclesController routes
 Route::get('/vehicles', [App\Http\Controllers\VehiclesController::class, 'index']);
