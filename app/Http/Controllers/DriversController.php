@@ -166,6 +166,16 @@ class DriversController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return $id; //! Test case
+        
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+
+        $driver = Driver::find($id);
+        $driver->delete();
+        
+        return redirect('/drivers')->with('success', 'Driver Removed!');
     }
 }
