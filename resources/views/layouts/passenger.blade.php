@@ -38,28 +38,21 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link text-white" href="{{ url('users')}}">
+          <a class="nav-link text-white " href="{{url('/trip')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">people</i>
+              <i class="material-icons opacity-10">book_online</i>
             </div>
-            <span class="nav-link-text ms-1">Users</span>
+            <span class="nav-link-text ms-1">Book a trip</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="{{url('/drivers')}}">
+          <a class="nav-link text-white " href="{{url('/cargo')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">electric_rickshaw</i>
+              <i class="material-icons opacity-10">cases</i>
             </div>
-            <span class="nav-link-text ms-1">Drivers</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="{{url('/vehicles')}}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">receipt_long</i>
-            </div>
-            <span class="nav-link-text ms-1">Vehicles</span>
+            <span class="nav-link-text ms-1">Send a cargo</span>
           </a>
         </li>
        
@@ -111,7 +104,7 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <h4 class="display-2">Passenger Dashboard</h4>
+      {{-- <h4 class="display-2">Passenger Dashboard</h4> --}}
       @include('inc.messages')
       @yield('content')
     </div>
