@@ -35,24 +35,4 @@ class DashboardController extends Controller
             return view('passenger_dashboard')->with('user', $user);
         }
     }
-    
-    /**
-     * Show the users on the admin dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function users()
-    {
-        // Check if user trying to access page is admin
-        if (auth()->user()->type != 1) {
-            return redirect('/dashboard')->with('error', 'Unauthorized Page');
-        }
-        
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
-        }
-        
-        return view('dashboard.users')->with('users', $users);
-    }
 }

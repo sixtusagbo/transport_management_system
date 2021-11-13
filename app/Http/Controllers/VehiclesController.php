@@ -31,10 +31,15 @@ class VehiclesController extends Controller
         }
         
         $drivers = Driver::pluck('first_name', 'id');
+        $vehicles = Vehicle::all();
+        foreach ($vehicles as $vehicle) {
+            $vehicle->driver = Driver::find($vehicle->driver_id);
+            $vehicle->driver->full_name = $vehicle->driver->first_name.' '.$vehicle->driver->last_name;
+        }
         
         $data = [
             'drivers' => $drivers,
-            'vehicles' => Vehicle::all(),
+            'vehicles' => $vehicles,
         ];
         
         return view('dashboard.vehicles', compact('drivers'))->with($data);
@@ -77,7 +82,7 @@ class VehiclesController extends Controller
         $vehicle->model = $newVehicle['model'];
         $vehicle->plate_number = $newVehicle['plate_number'];
         $vehicle->no_of_seats = $newVehicle['seats'];
-        $vehicle->status = 0; // *Important: 0 - Loading , 1 - Idle, 2 - Active
+        $vehicle->status = 0; //* Important: 0 - Idle, 1 - Loading, 2 - Active
         $vehicle->driver_id = $newVehicle['driver_id'];
         $vehicle->save();
         
@@ -85,14 +90,16 @@ class VehiclesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the vehicle to be deleted.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showToRemove($id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        
+        return view('dashboard.modify.delete_vehicle')->with('vehicle', $vehicle);
     }
 
     /**
@@ -103,7 +110,17 @@ class VehiclesController extends Controller
      */
     public function edit($id)
     {
-        //
+        // return $id; //! Test case
+        
+        $vehicle = Vehicle::find($id);
+        $drivers = Driver::pluck('first_name', 'id');
+        
+        $data = [
+         'vehicle' => $vehicle,
+         'drivers' => $drivers,
+        ];
+        
+        return view('dashboard.modify.edit_vehicle')->with($data);
     }
 
     /**
@@ -115,7 +132,31 @@ class VehiclesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request; //! Test case
+        
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
+        // Validate request details
+        $data = $request->validate([
+            'name' => 'required',
+            'model' => 'required',
+            'plate_number' => 'required|min:7|max:8|alpha_num',
+            'number_of_seats' => 'required|digits:2|between:14,25|numeric',
+            'driver_id' => 'required',
+        ]);
+        
+        $vehicle = Vehicle::find($id);
+        $vehicle->name = $data['name'];
+        $vehicle->model = $data['model'];
+        $vehicle->plate_number = $data['plate_number'];
+        $vehicle->no_of_seats = $data['number_of_seats'];
+        $vehicle->driver_id = $data['driver_id'];
+        $vehicle->update();
+        
+        return redirect('/vehicles')->with('success', 'Vehicle with plate number '. $data['plate_number'] .' updated!');
     }
 
     /**
@@ -126,6 +167,14 @@ class VehiclesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+
+        $vehicle = Vehicle::find($id);
+        $vehicle->delete();
+        
+        return redirect('/vehicles')->with('success', 'Vehicle Removed!');
     }
 }

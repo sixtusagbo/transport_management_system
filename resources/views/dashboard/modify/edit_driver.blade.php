@@ -28,7 +28,7 @@
       id="state"
       class="form-control border ps-2"
     >
-      <option value="" selected="selected">- Select -</option>
+      <option value="{{$driver->state}}" selected>{{$driver->state}}</option>
       <option value="Abia">Abia</option>
       <option value="Adamawa">Adamawa</option>
       <option value="AkwaIbom">AkwaIbom</option>
@@ -76,7 +76,7 @@
       id="lga"
       class="form-control border ps-2 select-lga"
     >
-    <option value="" selected="selected">-Select state first-</option>
+    <option value="{{$driver->lga}}" selected>{{$driver->lga}}</option>
     </select>
   </div>
   <div class="form-group mb-3">
