@@ -15,10 +15,10 @@
 </script>
 <script src="{{ asset('js/github_buttons.js')}}"></script>
 <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
+<script src="{{ asset('js/compressed.js')}}"></script>
+<script src="{{ asset('js/main.js')}}"></script>
 
 @if (request()->is('users'))
-  <script src="{{ asset('js/compressed.js')}}"></script>
-  <script src="{{ asset('js/main.js')}}"></script>
   <script>
     $('.editUserBtn').click(function(e){
       e.preventDefault();
@@ -30,7 +30,7 @@
   
       $.get(url, callback);
   
-    });
+    }); // Edit user ajax call
     $('.deleteUserBtn').click(function(e){
       e.preventDefault();
       var id = $(this).attr('data-id');
@@ -41,13 +41,11 @@
   
       $.get(url, callback);
   
-    });
+    }); // Delete user ajax call
   </script>
 @endif
 
 @if (request()->is('drivers'))
-  <script src="{{ asset('js/compressed.js')}}"></script>
-  <script src="{{ asset('js/main.js')}}"></script>
   <script>
     $('.editDriverBtn').click(function(e){
       e.preventDefault();
@@ -59,7 +57,7 @@
   
       $.get(url, callback);
   
-    });
+    }); // Edit driver ajax call
     $('.deleteDriverBtn').click(function(e){
       e.preventDefault();
       var id = $(this).attr('data-id');
@@ -70,6 +68,45 @@
   
       $.get(url, callback);
   
-    });
+    }); // Delete driver ajax call
+  </script>
+@endif
+
+@if (request()->is('vehicles'))
+  <script>
+    $('.editVehicleBtn').click(function(e){
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var url = '/vehicles/' + id + '/edit';
+      var callback = function (response) {
+        $('#editVehicleModalBody').html(response);
+      };
+  
+      $.get(url, callback);
+  
+    }); // Edit vehicle ajax call
+    $(document).ready(function () {
+      // Find the html elements
+      var $make = $("#make"),
+          $model = $("#model"),
+          $options = $model.find("option");
+
+      $make.on("change", function () {
+              // I'm filtering model using the data-make attribute
+              $model.html($options.filter('[data-make="' + this.value + '"]'));
+              $model.trigger("change");
+          }).trigger("change");
+    }); // For car make and model
+    $('.deleteVehicleBtn').click(function(e){
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var url = '/vehicles/' + id + '/showToRemove';
+      var callback = function (response) {
+        $('#deleteVehicleModalBody').html(response);
+      };
+  
+      $.get(url, callback);
+  
+    }); // Delete Vehicle ajax call
   </script>
 @endif

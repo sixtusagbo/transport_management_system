@@ -1,7 +1,7 @@
 @if (count($errors) > 0)
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">
-            {{$error}}
+            <h5 class="text-bold text-light">{{$error}}</h5>
             <img src="close.soon" style="display:none;" onerror="(function(el){ setTimeout(function(){ el.parentNode.parentNode.removeChild(el.parentNode); },4000 ); })(this);" />
         </div>
     @endforeach

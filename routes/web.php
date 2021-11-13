@@ -36,6 +36,10 @@ Route::delete('/drivers/{driver}', [App\Http\Controllers\DriversController::clas
 // VehiclesController routes
 Route::get('/vehicles', [App\Http\Controllers\VehiclesController::class, 'index']);
 Route::post('/vehicles', [App\Http\Controllers\VehiclesController::class, 'store'])->name('add_vehicle');
+Route::get('/vehicles/{vehicle}/edit', [App\Http\Controllers\VehiclesController::class, 'edit']);
+Route::put('/vehicles/{vehicle}', [App\Http\Controllers\VehiclesController::class, 'update']);
+Route::get('/vehicles/{vehicle}/showToRemove', [App\Http\Controllers\VehiclesController::class, 'showToRemove']);
+Route::delete('/vehicles/{vehicle}', [App\Http\Controllers\VehiclesController::class, 'destroy']);
 
 // Authenticaton routes
 Auth::routes();
