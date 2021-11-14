@@ -35,7 +35,7 @@ class DriversController extends Controller
             $driver->full_name = $driver->first_name.' '.$driver->last_name;
         }
         
-        return view('dashboard.drivers')->with('drivers', $drivers);
+        return view('admin.drivers')->with('drivers', $drivers);
     }
 
     /**
@@ -89,7 +89,7 @@ class DriversController extends Controller
         $driver = Driver::find($id);
         $driver->full_name = $driver->first_name.' '.$driver->last_name;
         
-        return view('dashboard.modify.delete_driver')->with('driver', $driver);
+        return view('admin.modify.delete_driver')->with('driver', $driver);
     }
 
     /**
@@ -102,7 +102,7 @@ class DriversController extends Controller
     {
         $driver = Driver::find($id);
         
-        return view('dashboard.modify.edit_driver')->with('driver', $driver);
+        return view('admin.modify.edit_driver')->with('driver', $driver);
     }
 
     /**

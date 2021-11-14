@@ -37,7 +37,7 @@ class UsersController extends Controller
             $user->full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
         }
         
-        return view('dashboard.users')->with('users', $users);
+        return view('admin.users')->with('users', $users);
     }
 
     /**
@@ -101,7 +101,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
         
-        return view('dashboard.modify.delete_user')->with('user', $user);
+        return view('admin.modify.delete_user')->with('user', $user);
     }
 
     /**
@@ -114,7 +114,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         
-        return view('dashboard.modify.edit_user')->with('user', $user);
+        return view('admin.modify.edit_user')->with('user', $user);
     }
 
     /**

@@ -42,17 +42,7 @@ class VehiclesController extends Controller
             'vehicles' => $vehicles,
         ];
         
-        return view('dashboard.vehicles', compact('drivers'))->with($data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.vehicles', compact('drivers'))->with($data);
     }
 
     /**
@@ -99,7 +89,7 @@ class VehiclesController extends Controller
     {
         $vehicle = Vehicle::find($id);
         
-        return view('dashboard.modify.delete_vehicle')->with('vehicle', $vehicle);
+        return view('admin.modify.delete_vehicle')->with('vehicle', $vehicle);
     }
 
     /**
@@ -120,7 +110,7 @@ class VehiclesController extends Controller
          'drivers' => $drivers,
         ];
         
-        return view('dashboard.modify.edit_vehicle')->with($data);
+        return view('admin.modify.edit_vehicle')->with($data);
     }
 
     /**
