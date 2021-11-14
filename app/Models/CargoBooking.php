@@ -15,10 +15,13 @@ class CargoBooking extends Model
      * @var string[]
      */
     protected $fillable = [
-        'cargo_id', //! Dropdown
+        'name', //! Example: Parcel
+        'nature', //! Fragile or Non-fragile
+        'weight', //! Calculate based on size in kg. If greater than 5kg charge spillover as 100naira per kg
         'user_id', //! from login i.e auth->user->id
         'destination_id', //! Dropdown
         'amount', //! Calculate considering cargo details and destination details
         'delivery_date', //! Auto Gen
+        'ticket_no', //! Auto Gen
     ];
 }
