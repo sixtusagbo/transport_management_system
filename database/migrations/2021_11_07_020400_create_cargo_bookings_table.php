@@ -15,11 +15,14 @@ class CreateCargoBookingsTable extends Migration
     {
         Schema::create('cargo_bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('cargo_id');
+            $table->text('name');
+            $table->tinyText('nature');
+            $table->tinyInteger('weight');
             $table->integer('user_id');
             $table->integer('destination_id');
             $table->decimal('amount', 5, 2);
             $table->date('delivery_date');
+            $table->uuid('ticket_no');
             $table->timestamps();
         });
     }
