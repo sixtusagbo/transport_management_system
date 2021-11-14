@@ -14,7 +14,7 @@
   <link href="{{ asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="{{ asset('assets/css/fontawesome.css')}}" rel="stylesheet" />
   <!-- Material Icons -->
   <link href="{{ asset('assets/css/material-icon.css')}}" rel="stylesheet">
   <!-- CSS Files -->
@@ -54,7 +54,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{url('/drivers')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">airport_shuttle</i>
+              <i class="fas fa-steering-wheel" style="font-size:1.4em;"></i>
             </div>
             <span class="nav-link-text ms-1">Drivers</span>
           </a>
@@ -67,6 +67,30 @@
             <span class="nav-link-text ms-1">Vehicles</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{url('/destinations')}}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-map-marker-alt" style="font-size:1.4em;"></i>
+            </div>
+            <span class="nav-link-text ms-1">Destinations</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{request()->url()}}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-ticket-alt" style="font-size:1.4em;"></i>
+            </div>
+            <span class="nav-link-text ms-1">Trip Bookings</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{request()->url()}}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-truck-container" style="font-size:1.4em;"></i>
+            </div>
+            <span class="nav-link-text ms-1">Cargo Bookings</span>
+          </a>
+        </li>
        
       </ul>
     </div>
@@ -74,7 +98,7 @@
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="false">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
         </nav>
