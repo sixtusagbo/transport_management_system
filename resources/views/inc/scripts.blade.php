@@ -14,6 +14,7 @@
   }
 </script>
 <script src="{{ asset('js/github_buttons.js')}}"></script>
+  <script src="{{ asset('js/fontawesome.js')}}"></script>
 <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
 <script src="{{ asset('js/compressed.js')}}"></script>
 <script src="{{ asset('js/main.js')}}"></script>

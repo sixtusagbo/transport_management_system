@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\DriversController;
+use App\Http\Controllers\VehiclesController;
+use App\Http\Controllers\DestinationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -18,28 +22,31 @@ Route::get('/', function () {
 });
 
 // UsersController routes
-Route::get('/users', [App\Http\Controllers\UsersController::class, 'index']);
-Route::post('/users', [App\Http\Controllers\UsersController::class, 'store'])->name('add_user');
-Route::get('/users/{user}/edit', [App\Http\Controllers\UsersController::class, 'edit']);
-Route::get('/users/{user}/showToRemove', [App\Http\Controllers\UsersController::class, 'showToRemove']);
-Route::put('/users/{user}', [App\Http\Controllers\UsersController::class, 'update']);
-Route::delete('/users/{user}', [App\Http\Controllers\UsersController::class, 'destroy']);
+Route::get('/users', [UsersController::class, 'index']);
+Route::post('/users', [UsersController::class, 'store'])->name('add_user');
+Route::get('/users/{user}/edit', [UsersController::class, 'edit']);
+Route::get('/users/{user}/showToRemove', [UsersController::class, 'showToRemove']);
+Route::put('/users/{user}', [UsersController::class, 'update']);
+Route::delete('/users/{user}', [UsersController::class, 'destroy']);
 
 // DriversController routes
-Route::get('/drivers', [App\Http\Controllers\DriversController::class, 'index']);
-Route::post('/drivers', [App\Http\Controllers\DriversController::class, 'store']);
-Route::get('/drivers/{driver}/edit', [App\Http\Controllers\DriversController::class, 'edit']);
-Route::get('/drivers/{driver}/showToRemove', [App\Http\Controllers\DriversController::class, 'showToRemove']);
-Route::put('/drivers/{driver}', [App\Http\Controllers\DriversController::class, 'update']);
-Route::delete('/drivers/{driver}', [App\Http\Controllers\DriversController::class, 'destroy']);
+Route::get('/drivers', [DriversController::class, 'index']);
+Route::post('/drivers', [DriversController::class, 'store']);
+Route::get('/drivers/{driver}/edit', [DriversController::class, 'edit']);
+Route::get('/drivers/{driver}/showToRemove', [DriversController::class, 'showToRemove']);
+Route::put('/drivers/{driver}', [DriversController::class, 'update']);
+Route::delete('/drivers/{driver}', [DriversController::class, 'destroy']);
 
 // VehiclesController routes
-Route::get('/vehicles', [App\Http\Controllers\VehiclesController::class, 'index']);
-Route::post('/vehicles', [App\Http\Controllers\VehiclesController::class, 'store'])->name('add_vehicle');
-Route::get('/vehicles/{vehicle}/edit', [App\Http\Controllers\VehiclesController::class, 'edit']);
-Route::put('/vehicles/{vehicle}', [App\Http\Controllers\VehiclesController::class, 'update']);
-Route::get('/vehicles/{vehicle}/showToRemove', [App\Http\Controllers\VehiclesController::class, 'showToRemove']);
-Route::delete('/vehicles/{vehicle}', [App\Http\Controllers\VehiclesController::class, 'destroy']);
+Route::get('/vehicles', [VehiclesController::class, 'index']);
+Route::post('/vehicles', [VehiclesController::class, 'store'])->name('add_vehicle');
+Route::get('/vehicles/{vehicle}/edit', [VehiclesController::class, 'edit']);
+Route::put('/vehicles/{vehicle}', [VehiclesController::class, 'update']);
+Route::get('/vehicles/{vehicle}/showToRemove', [VehiclesController::class, 'showToRemove']);
+Route::delete('/vehicles/{vehicle}', [VehiclesController::class, 'destroy']);
+
+// Destinationsontroller routes
+Route::get('/destinations', [DestinationsController::class, 'index']);
 
 // Authenticaton routes
 Auth::routes();
