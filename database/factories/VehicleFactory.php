@@ -18,7 +18,8 @@ class VehicleFactory extends Factory
             'model' => 'Urvan',
             'plate_number' => 'EBS1011',
             'no_of_seats' => random_int(14, 25),
-            'driver' => '1',
+            'driver_id' => '1',
+            'status' => '0',
         ];
     }
 }
