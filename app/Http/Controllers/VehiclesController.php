@@ -141,16 +141,12 @@ class VehiclesController extends Controller
         
         // Validate request details
         $data = $request->validate([
-            'name' => 'required',
-            'model' => 'required',
             'plate_number' => 'required|min:7|max:8|alpha_num',
             'number_of_seats' => 'required|digits:2|between:14,25|numeric',
             'driver_id' => 'required',
         ]);
         
         $vehicle = Vehicle::find($id);
-        $vehicle->name = $data['name'];
-        $vehicle->model = $data['model'];
         $vehicle->plate_number = $data['plate_number'];
         $vehicle->no_of_seats = $data['number_of_seats'];
         $vehicle->driver_id = $data['driver_id'];
