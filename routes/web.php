@@ -6,6 +6,8 @@ use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\DestinationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SendCargoController;
+use App\Http\Controllers\BookATripController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +47,7 @@ Route::put('/vehicles/{vehicle}', [VehiclesController::class, 'update']);
 Route::get('/vehicles/{vehicle}/showToRemove', [VehiclesController::class, 'showToRemove']);
 Route::delete('/vehicles/{vehicle}', [VehiclesController::class, 'destroy']);
 
-// Destinationsontroller routes
+// DestinationsController routes
 Route::get('/destinations', [DestinationsController::class, 'index']);
 
 // Authenticaton routes
@@ -53,3 +55,9 @@ Auth::routes();
 
 // Dashboard route
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+//Passengers route
+Route::get('/passenger/send_cargo', [SendCargoController::class, 'index']);
+Route::get('/passenger/book_trip', [BookATripController::class, 'index']);
+Route::post('/passenger/book_trip', [BookATripController::class, 'booking'])->name('book');
+Route::post('/passenger/send_cargo', [SendCargoController::class, 'cargo'])->name('cargo');

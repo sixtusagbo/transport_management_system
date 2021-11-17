@@ -40,7 +40,7 @@
         </li>
         
         <li class="nav-item">
-          <a class="nav-link text-white " href="{{url('/trip')}}">
+          <a class="nav-link text-white " href="{{url('/passenger/book_trip')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">book_online</i>
             </div>
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="{{url('/cargo')}}">
+          <a class="nav-link text-white " href="{{url('/passenger/send_cargo')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">cases</i>
             </div>
