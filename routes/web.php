@@ -41,7 +41,7 @@ Route::delete('/drivers/{driver}', [DriversController::class, 'destroy']);
 
 // VehiclesController routes
 Route::get('/vehicles', [VehiclesController::class, 'index']);
-Route::post('/vehicles', [VehiclesController::class, 'store'])->name('add_vehicle');
+Route::post('/vehicles', [VehiclesController::class, 'store']);
 Route::get('/vehicles/{vehicle}/edit', [VehiclesController::class, 'edit']);
 Route::put('/vehicles/{vehicle}', [VehiclesController::class, 'update']);
 Route::get('/vehicles/{vehicle}/showToRemove', [VehiclesController::class, 'showToRemove']);
@@ -49,6 +49,10 @@ Route::delete('/vehicles/{vehicle}', [VehiclesController::class, 'destroy']);
 
 // DestinationsController routes
 Route::get('/destinations', [DestinationsController::class, 'index']);
+Route::post('/destinations', [DestinationsController::class, 'store']);
+Route::get('/destinations/{destination}/edit', [DestinationsController::class, 'edit']);
+Route::put('/destinations/{destination}', [DestinationsController::class, 'update']);
+Route::delete('/destinations/{destination}', [DestinationsController::class, 'destroy']);
 
 // Authenticaton routes
 Auth::routes();

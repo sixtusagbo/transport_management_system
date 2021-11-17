@@ -22,6 +22,7 @@ class CreateVehiclesTable extends Migration
             $table->tinyInteger('status');
             $table->integer('driver_id');
             $table->integer('booking_id')->nullable();
+            $table->integer('destination_id')->nullable();
             $table->timestamps();
         });
     }
