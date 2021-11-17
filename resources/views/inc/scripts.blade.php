@@ -111,3 +111,19 @@
     }); // Delete Vehicle ajax call
   </script>
 @endif
+
+@if (request()->is('destinations'))
+  <script>
+    $('.editDestinationBtn').click(function(e){
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var url = '/destinations/' + id + '/edit';
+      var callback = function (response) {
+        $('#editDestinationModalBody').html(response);
+      };
+  
+      $.get(url, callback);
+  
+    }); // Edit destination ajax call
+  </script>
+@endif

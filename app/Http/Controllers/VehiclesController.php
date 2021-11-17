@@ -30,12 +30,17 @@ class VehiclesController extends Controller
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
         
-        $drivers = Driver::pluck('first_name', 'id');
         $vehicles = Vehicle::all();
         foreach ($vehicles as $vehicle) {
             $vehicle->driver = Driver::find($vehicle->driver_id);
             $vehicle->driver->full_name = $vehicle->driver->first_name.' '.$vehicle->driver->last_name;
         }
+        // Fetching drivers with Eloquent
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->forPluck = $driver->first_name.' '.$driver->last_name;
+        }
+        $drivers = $drivers->pluck('forPluck', 'id');
         
         $data = [
             'drivers' => $drivers,

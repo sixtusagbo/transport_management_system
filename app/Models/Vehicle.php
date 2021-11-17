@@ -22,6 +22,7 @@ class Vehicle extends Model
         'status',
         'driver_id',
         'booking_id',
+        'destination_id',
     ];
     
     /**

@@ -14,7 +14,7 @@
   <link href="{{ asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <link href="{{ asset('assets/css/fontawesome.css')}}" rel="stylesheet" />
+  <link href="{{ asset('css/fontawesome.css')}}" rel="stylesheet" />
   <!-- Material Icons -->
   <link href="{{ asset('assets/css/material-icon.css')}}" rel="stylesheet">
   <!-- CSS Files -->
@@ -73,14 +73,6 @@
               <i class="fas fa-map-marker-alt" style="font-size:1.4em;"></i>
             </div>
             <span class="nav-link-text ms-1">Destinations</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="{{request()->url()}}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fas fa-ticket-alt" style="font-size:1.4em;"></i>
-            </div>
-            <span class="nav-link-text ms-1">Trip Bookings</span>
           </a>
         </li>
         <li class="nav-item">

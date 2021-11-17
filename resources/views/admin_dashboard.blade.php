@@ -141,5 +141,7 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
+    
+    {{-- TODO: Add the trip bookings table with a createless crud --}}
 @endsection

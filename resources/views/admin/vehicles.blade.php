@@ -16,11 +16,11 @@
                         <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vehicle</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Plate number</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number of seats</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Driver</th>
-                            <th class="text-primary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Option</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vehicle</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Plate number</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number of seats</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Driver</th>
+                                <th class="text-primary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +67,7 @@
             
             <div class="card">
                 <div class="card-header">
-                  <h4 class="dispay-4 text-primary">Create New vehicle</h4>
+                  <h4 class="dispay-4 text-primary">Create New Vehicle</h4>
                 </div>
 
                 <div class="card-body">
@@ -176,5 +176,5 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
 @endsection
