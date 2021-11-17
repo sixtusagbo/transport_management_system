@@ -37,7 +37,7 @@
                                 <p class="text-xs font-weight-bold mb-0">{{$destination->vehicle->plate_number}}</p>
                               </td>
                               <td class="align-middle text-center text-sm">
-                                  <p class="text-xs font-weight-bold mb-0">₦{{number_format($destination->amount, '2', '.', ',')}}</p>
+                                  <p class="text-xs font-weight-bold mb-0">&#8358;{{number_format($destination->amount, '2', '.', ',')}}</p>
                               </td>
                               <td class="align-middle text-center">
                                 <a href="" class="text-secondary font-weight-bold text-xs editDestinationBtn" data-toggle="modal" data-target="#editDestinationModal" data-id="{{$destination->id}}">
