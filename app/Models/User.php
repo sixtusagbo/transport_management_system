@@ -52,7 +52,7 @@ class User extends Authenticatable
     /**
      * Get the booking associated with the user(passenger).
      */
-    public function booking()
+    public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
@@ -60,7 +60,7 @@ class User extends Authenticatable
     /**
      * Get the cargoBooking associated with the user(passenger).
      */
-    public function cargoBooking()
+    public function cargoBookings()
     {
         return $this->hasMany(CargoBooking::class);
     }

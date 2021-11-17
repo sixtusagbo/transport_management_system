@@ -24,4 +24,6 @@ class CargoBooking extends Model
         'delivery_date', //! Auto Gen
         'ticket_no', //! Auto Gen
     ];
+    
+    //TODO: Relationships
 }
