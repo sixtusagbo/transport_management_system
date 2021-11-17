@@ -1,3 +1,8 @@
+<div class="d-flex justify-content-center mb-0">
+  <div class="alert alert-info p-2 mb-0">
+      <h6 class="text-bold text-light">This vehicle is currently {{$vehicle->status}}</h6>
+  </div>
+</div>
 <form role="form" method="POST" action="{{ url('/vehicles/'. $vehicle->id) }}" id="editVehicleForm">
   @csrf
   {{-- Vehicle names list --}}

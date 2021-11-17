@@ -127,3 +127,19 @@
     }); // Edit destination ajax call
   </script>
 @endif
+
+@if (request()->is('dashboard'))
+<script>
+  $('.loadTicket').click(function(e){
+    e.preventDefault();
+    var id = $('#UTNOselect').val();
+    var url = '/trips/' + id + '/pay';
+    var callback = function (response) {
+      $('#payTicket').html(response);
+    };
+
+    $.get(url, callback);
+
+  });
+</script>
+@endif

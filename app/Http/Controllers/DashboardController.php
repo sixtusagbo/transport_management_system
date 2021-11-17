@@ -42,6 +42,16 @@ class DashboardController extends Controller
         $cargos = CargoBooking::all();
         $tickets = Booking::all();
         
+        
+        // pluck necessary data for ticket
+        foreach ($tickets as $ticket) {
+            $ticket->user = User::find($ticket->user_id);
+            $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
+            $ticket->destination = Destination::find($ticket->destination_id);
+        }
+        $pluckTicketNo = $tickets->pluck('ticket_no', 'ticket_no');
+        // return $ticket->depature_date; //! Test Case
+        
         $adminData = [
             'drivers' => $drivers,
             'vehicles' => $vehicles,
@@ -52,6 +62,7 @@ class DashboardController extends Controller
             'administrators' => $administrators,
             'cargos' => $cargos,
             'tickets' => $tickets,
+            'pluckTicketNo' => $pluckTicketNo,
         ];
         
         //* Show differrent dashboards depending on the type of user

@@ -36,7 +36,7 @@ class Vehicle extends Model
     /**
      * Get the booking associated with the vehicle.
      */
-    public function booking()
+    public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
