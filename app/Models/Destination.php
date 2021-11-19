@@ -16,14 +16,13 @@ class Destination extends Model
      */
     protected $fillable = [
         'name', //! Example: Abakaliki to Enugu
-        'vehicle_id', //! Dropdown
         'amount', //! Calculate based on destination
     ];
     
     /**
      * Get the vehicle associated with the destination.
      */
-    public function vehicle()
+    public function vehicles()
     {
         return $this->hasMany(Vehicle::class);
     }

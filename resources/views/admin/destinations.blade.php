@@ -7,7 +7,7 @@
           <div class="card my-4">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                   <div class="bg-gradient-light shadow-primary border-radius-lg pt-4 pb-3 d-flex p-4">
-                  <h6 class="text-capitalize w-100">Available Destinations</h6>
+                    <h6 class="text-capitalize w-100">Available Destinations</h6>
                   </div>
               </div>
               <div class="card-body px-0 pb-2">
@@ -33,8 +33,24 @@
                                   </div>
                               </td>
                               <td>
-                                <h6 class="mb-0 text-sm">{{$destination->vehicle->full_description}}</h6>
-                                <p class="text-xs font-weight-bold mb-0">{{$destination->vehicle->plate_number}}</p>
+                                <p class="text-xs font-weight-bold mb-0">
+                                @if ($destination->vehicles->count() > 1)
+                                    @foreach ($destination->vehicles as $vehicle)
+                                        @if ($vehicle == $destination->vehicles->last())
+                                            {{$vehicle->plate_number.'.'}}
+                                        @else                                        
+                                            {{$vehicle->plate_number.', '}}
+                                        @endif
+                                    @endforeach
+                                @else
+                                    @foreach ($destination->vehicles as $vehicle)
+                                        {{$vehicle->plate_number}}
+                                    @endforeach
+                                @endif
+                                @if ($destination->vehicles->count() == 0)
+                                    {!! 'None' !!}
+                                @endif
+                                </p>
                               </td>
                               <td class="align-middle text-center text-sm">
                                   <p class="text-xs font-weight-bold mb-0">&#8358;{{number_format($destination->amount, '2', '.', ',')}}</p>
@@ -48,6 +64,10 @@
                                   </a>
                             </td>
                           </tr>
+                          <form role="form" method="POST" action="{{ url('/destinations/'. $destination->id) }}" id="deleteDestinationForm">
+                            @csrf
+                            <input type="hidden" name="_method" value="DELETE">
+                        </form>
                           @endforeach
                       </tbody>
                       </table>
@@ -62,20 +82,14 @@
           
       <div class="col-md-4">
           <div class="card">
-              <div class="card-header">
-                <h4 class="dispay-4 text-primary">Create New Destination</h4>
-              </div>
-
-              <div class="card-body">
+            
+            <div class="card-body">
+                  <h4 class="dispay-4 text-primary">Create New Destination</h4>
 
                 {!! Form::open(['action' => 'App\Http\Controllers\DestinationsController@store', 'method' => 'POST', 'id' => 'newDestinationForm']) !!}
                   <div class="form-group">
                       {{Form::label('name', 'Name', ['class' => 'control-label'])}}
                       {{Form::text('name', '', ['class' => 'form-control border ps-2', 'required'])}}
-                  </div>
-                  <div class="form-group">
-                      {{Form::label('vehicle_id', 'Vehicle', ['class' => 'control-label'])}}
-                      {{Form::select('vehicle_id', $vehicles, null, ['class' => 'form-control border ps-2'])}}
                   </div>
                   <div class="form-group">
                       {{Form::label('amount', 'Amount', ['class' => 'control-label'])}}
@@ -128,10 +142,6 @@
                 <p class="lead display-4 font-weight-bold">
                     Are you sure you wish to remove this destination?
                 </p>
-                <form role="form" method="POST" action="{{ url('/destinations/'. $destination->id) }}" id="deleteDestinationForm">
-                    @csrf
-                    <input type="hidden" name="_method" value="DELETE">
-                </form>
             </div>
             <div class="modal-footer">
                     <div class="row">

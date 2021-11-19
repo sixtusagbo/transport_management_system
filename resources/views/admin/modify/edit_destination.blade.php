@@ -5,10 +5,6 @@
       <input type="text" name="name" class="form-control border ps-2" value="{{$destination->name}}" required>
   </div>
   <div class="form-group">
-      {{Form::label('vehicle_id', 'Driver', ['class' => 'control-label'])}}
-      {{Form::select('vehicle_id', $vehicles, $destination->vehicle_id, ['class' => 'form-control border ps-2'])}}
-  </div>
-  <div class="form-group">
       {{Form::label('amount', 'Amount', ['class' => 'control-label'])}}
       {{Form::number('amount', $destination->amount, ['class' => 'form-control border ps-2', 'required', 'min' => '300', 'step' => '100'])}}
   </div>

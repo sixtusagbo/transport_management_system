@@ -31,19 +31,18 @@ class DestinationsController extends Controller
         }
         
         $destinations = Destination::orderBy('name', 'asc')->get();
-        foreach ($destinations as $destination) {
-            $destination->vehicle = Vehicle::find($destination->vehicle_id);
-            $destination->vehicle->full_description = $destination->vehicle->name.' '.$destination->vehicle->model;
-        }
-        $vehicles = Vehicle::all();
-        foreach ($vehicles as $vehicle) {
-            $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
-        }
-        $vehicles = $vehicles->pluck('forPluck', 'id');
+        // $vehicles = Vehicle::all();
+        // foreach ($vehicles as $vehicle) {
+        //     $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
+        // }
+        // $vehicles = $vehicles->pluck('forPluck', 'id');
+        
+        // $des = Destination::find(1);
+        // return $des->vehicles;
         
         $data = [
             'destinations' => $destinations,
-            'vehicles' => $vehicles,
+            // 'vehicles' => $vehicles,
         ];
         
         return view('admin.destinations')->with($data);
@@ -67,13 +66,11 @@ class DestinationsController extends Controller
         // Validate request details
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'vehicle_id' => 'required',
             'amount' => 'required',
         ]);
         
         $destination = new Destination();
         $destination->name = $data['name'];
-        $destination->vehicle_id = $data['vehicle_id'];
         $destination->amount = $data['amount'];
         $destination->save();
         
@@ -102,18 +99,18 @@ class DestinationsController extends Controller
         // return $id; //! Test case
         
         $destination = Destination::find($id);
-        $destination->vehicle = Vehicle::find($destination->vehicle_id);
-        $destination->vehicle->full_description = $destination->vehicle->name.' '.$destination->vehicle->model;
+        // $destination->vehicle = Vehicle::find($destination->vehicle_id);
+        // $destination->vehicle->full_description = $destination->vehicle->name.' '.$destination->vehicle->model;
         
-        $vehicles = Vehicle::all();
-        foreach ($vehicles as $vehicle) {
-            $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
-        }
-        $vehicles = $vehicles->pluck('forPluck', 'id');
+        // $vehicles = Vehicle::all();
+        // foreach ($vehicles as $vehicle) {
+        //     $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
+        // }
+        // $vehicles = $vehicles->pluck('forPluck', 'id');
         
         $data = [
             'destination' => $destination,
-            'vehicles' => $vehicles,
+            // 'vehicles' => $vehicles,
         ];
         
         return view('admin.modify.edit_destination')->with($data);

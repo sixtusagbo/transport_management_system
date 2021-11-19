@@ -17,12 +17,13 @@ class CreateVehiclesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('model');
-            $table->string('plate_number');
+            $table->string('plate_number')->unique();
             $table->tinyInteger('no_of_seats');
-            $table->tinyInteger('status');
-            $table->integer('driver_id');
-            $table->integer('booking_id')->nullable();
-            $table->integer('destination_id')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('driver_id')->unique();
+            $table->integer('destination_id');
+            $table->time('depature_time');
+            $table->tinyInteger('temp_seats')->default(0);
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@
 <!--<![endif]-->
 
 <head>
-	<title>Transport Mgt System | Home</title>
+	<title>{{config('app.name')}} | Home</title>
 	<meta charset="utf-8">
 	<!--[if IE]>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

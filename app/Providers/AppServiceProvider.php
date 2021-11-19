@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
+        
+        // set timezone according to user's timezone
+        $timezone = config('app.timezone', 'UTC');
+        if(auth()->user()) {
+            $timezone = auth()->user()->timezone;
+        }
+        date_default_timezone_set($timezone);
     }
 }
