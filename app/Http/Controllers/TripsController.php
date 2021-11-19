@@ -72,11 +72,20 @@ class TripsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $id;
+        // return $id; //! Test Case
+        
+        $data = $this->validate($request, [
+            'isPaid' => 'required|boolean',
+        ]);
+        
+        $ticket = Booking::find($id);
+        $ticket->isPaid = $data['isPaid'];
+        $ticket->update();
+        
+        return redirect('/dashboard')->with('success', 'Payment successful for ticket no '.$request->ticket_no);
     }
 
-    //TODO: Remove destroy function
-    //! No delete route for this controller
+    //TODO: Add condition for automatic deleting of ticket if its not paid after a month from it's created_at date
     /**
      * Remove the specified resource from storage.
      *
@@ -100,7 +109,7 @@ class TripsController extends Controller
         $ticket = Booking::where('ticket_no', $ticket_no)->first();
         $ticket->destination = Destination::find($ticket->destination_id);
         
-        return view('admin.ticket')->with('ticket', $ticket);
+        return view('modify.ticket')->with('ticket', $ticket);
     }
     
     /**

@@ -23,14 +23,6 @@ class Booking extends Model
     ];
     
     /**
-     * Get the vehicle associated with the booking.
-     */
-    public function vehicle()
-    {
-        return $this->belongsTo(Vehicle::class);
-    }
-    
-    /**
      * Get the user(passenger) associated with the booking.
      */
     public function user()

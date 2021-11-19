@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $dailyCargos = CargoBooking::whereDate('created_at', Carbon::today())->get();
         $administrators = User::where('type', 1)->get();
         $cargos = CargoBooking::all();
-        $tickets = Booking::all();
+        $tickets = Booking::orderBy('created_at', 'desc')->paginate(5);
         
         
         // pluck necessary data for ticket
@@ -67,7 +67,7 @@ class DashboardController extends Controller
         
         //* Show differrent dashboards depending on the type of user
         if ($user->type == 1) {
-            return view('admin_dashboard')->with($adminData);
+            return view('admin.dashboard')->with($adminData);
         } else if ($user->type == 0) {
             return view('passenger_dashboard')->with('user', $user);
         }

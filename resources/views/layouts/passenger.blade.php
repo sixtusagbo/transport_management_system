@@ -75,11 +75,11 @@
             <li class="nav-item d-flex align-items-center">
               <a href="{{ route('logout') }}" onclick="event.preventDefault();
                document.getElementById('logout-form').submit();" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">{{ __('Logout') }}</span>
+                <i class="fa fa-sign-out-alt me-sm-1"></i>
+                <span class="d-sm-inline d-none">{{ __('Sign out') }}</span>
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
+                @csrf
               </form>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">

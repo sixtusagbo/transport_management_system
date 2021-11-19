@@ -19,9 +19,8 @@ class Vehicle extends Model
         'model',
         'plate_number',
         'no of seats',
-        'status',
+        'status', //* Important: 0 - Idle, 1 - Loading, 2 - Active
         'driver_id',
-        'booking_id',
         'destination_id',
     ];
     
@@ -33,15 +32,7 @@ class Vehicle extends Model
         return $this->hasOne(Driver::class);
     }
     
-    /**
-     * Get the booking associated with the vehicle.
-     */
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class);
-    }
-    
-    /**
+    /** 
      * Get the destination associated with the vehicle.
      */
     public function destination()

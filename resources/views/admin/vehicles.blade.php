@@ -19,6 +19,8 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vehicle</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Plate number</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number of seats</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Depature time</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Destination</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Driver</th>
                                 <th class="text-primary text-center text-uppercase text-xxs font-weight-bolder opacity-7">Option</th>
                             </tr>
@@ -30,7 +32,7 @@
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{$vehicle->name}}</h6>
-                                            <p class="text-xs text-secondary mb-0 text-center">{{$vehicle->model}}</p>
+                                            <p class="text-xs text-secondary mb-0">{{$vehicle->model}}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -39,6 +41,15 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <p class="text-xs font-weight-bold mb-0">{{$vehicle->no_of_seats}}</p>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0">{{$vehicle->depature_time}}</p>
+                                </td>
+                                <td class="align-middle text-sm">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">{{$vehicle->destination->name}}</h6>
+                                        <p class="text-xs font-weight-bold mb-0">{{$vehicle->destination->amount}}</p>
+                                    </div>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{$vehicle->driver->full_name}}</span>
@@ -66,11 +77,9 @@
         <div class="col-md-4">
             
             <div class="card">
-                <div class="card-header">
-                  <h4 class="dispay-4 text-primary">Create New Vehicle</h4>
-                </div>
-
+                
                 <div class="card-body">
+                    <h4 class="dispay-4 text-primary">Create New Vehicle</h4>
 
                   {!! Form::open(['action' => 'App\Http\Controllers\VehiclesController@store', 'method' => 'POST', 'id' => 'newVehicleForm']) !!}
                     {{-- Vehicle names list --}}
@@ -114,13 +123,27 @@
                         {{Form::label('plate_number', 'Plate number', ['class' => 'control-label'])}}
                         {{Form::text('plate_number', '', ['class' => 'form-control border ps-2', 'required'])}}
                     </div>
-                    <div class="form-group">
-                        {{Form::label('seats', 'Number of Seats', ['class' => 'control-label'])}}
-                        {{Form::number('seats', '', ['class' => 'form-control border ps-2', 'required', 'min' => '14', 'max' => '25'])}}
+                    <div class="row mt-1">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{Form::label('seats', 'Number of Seats', ['class' => 'form-label'])}}
+                                {{Form::number('seats', '', ['class' => 'form-control border ps-2', 'required', 'min' => '14', 'max' => '25'])}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{Form::label('depature_time', 'Depature time', ['class' => 'form-label'])}}
+                                {{Form::time('depature_time', '', ['class' => 'form-control border ps-2', 'required', 'min' => '14', 'max' => '25'])}}
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        {{Form::label('driver_id', 'Driver', ['class' => 'control-label'])}}
-                        {{Form::select('driver_id', $drivers, null, ['class' => 'form-control border ps-2'])}}
+                        {{Form::label('driver', 'Driver', ['class' => 'control-label'])}}
+                        {{Form::select('driver', $drivers, null, ['class' => 'form-control border ps-2'])}}
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('destination_id', 'Destination', ['class' => 'control-label'])}}
+                        {{Form::select('destination_id', $destinations, null, ['class' => 'form-control border ps-2'])}}
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                       {{Form::submit('Add Vehicle', ['class' => 'btn btn-sm btn-outline-success'])}}
