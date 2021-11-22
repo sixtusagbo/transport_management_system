@@ -40,17 +40,15 @@ class DashboardController extends Controller
         $dailyCargos = CargoBooking::whereDate('created_at', Carbon::today())->get();
         $administrators = User::where('type', 1)->get();
         $cargos = CargoBooking::all();
-        $tickets = Booking::orderBy('created_at', 'desc')->paginate(5);
+        $tickets = Booking::latest()->paginate(5);
+        $userTickets = $user->bookings;
+        $userTicketsBookedToday = $user->bookings()->whereDate('created_at', Carbon::today())->get();
         
-        
-        // pluck necessary data for ticket
         foreach ($tickets as $ticket) {
-            $ticket->user = User::find($ticket->user_id);
             $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
-            $ticket->destination = Destination::find($ticket->destination_id);
         }
+        // pluck necessary data for ticket
         $pluckTicketNo = $tickets->pluck('ticket_no', 'ticket_no');
-        // return $ticket->depature_date; //! Test Case
         
         $adminData = [
             'drivers' => $drivers,
@@ -65,11 +63,26 @@ class DashboardController extends Controller
             'pluckTicketNo' => $pluckTicketNo,
         ];
         
+        // Modify $userTickets
+        foreach ($userTickets as $ticket) {
+            $ticket->depature_date = Carbon::create($ticket->depature_date)->format('D jS M\, Y');
+            $ticket->depature_time = Carbon::create($ticket->depature_time)->format('h:i A');
+            $depatureDateTime = $ticket->depature_date.' by '.$ticket->depature_time;
+            
+            $ticket->depature = $depatureDateTime;
+        }
+        
+        $passengerData = [
+            'destinations' => Destination::pluck('name', 'id'),
+            'tickets' => $userTickets,
+            'todayTickets' => $userTicketsBookedToday,
+        ];
+        
         //* Show differrent dashboards depending on the type of user
         if ($user->type == 1) {
             return view('admin.dashboard')->with($adminData);
         } else if ($user->type == 0) {
-            return view('passenger_dashboard')->with('user', $user);
+            return view('passenger.dashboard')->with($passengerData);
         }
     }
 }

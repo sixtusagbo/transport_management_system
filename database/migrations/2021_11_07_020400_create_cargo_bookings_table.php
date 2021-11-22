@@ -20,7 +20,7 @@ class CreateCargoBookingsTable extends Migration
             $table->tinyInteger('weight');
             $table->integer('user_id');
             $table->integer('destination_id');
-            $table->decimal('amount', 5, 2);
+            $table->decimal('amount', 7, 2);
             $table->date('delivery_date');
             $table->uuid('ticket_no');
             $table->timestamps();

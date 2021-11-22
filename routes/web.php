@@ -57,9 +57,11 @@ Route::put('/destinations/{destination}', [DestinationsController::class, 'updat
 Route::delete('/destinations/{destination}', [DestinationsController::class, 'destroy']);
 
 // Trip routes
-// Route::get('/trip', [TripsController::class, 'index']); //! Test Case
+Route::post('/trips', [TripsController::class, 'store']);
 Route::get('/trips/{trip}/pay', [TripsController::class, 'payTicket']);
 Route::put('/trips/{trip}', [TripsController::class, 'update']);
+Route::get('/trips/{trip}/destinationDetails', [TripsController::class, 'getDestinationDetailsForBooking']);
+Route::get('/trips/{trip}', [TripsController::class, 'show']);
 
 // Authenticaton routes
 Auth::routes();

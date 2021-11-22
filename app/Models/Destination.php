@@ -26,12 +26,4 @@ class Destination extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
-    
-    /**
-     * Get the ticket(booking) associated with the Destination.
-     */
-    public function booking()
-    {
-        return $this->belongsTo(Booking::class);
-    }
 }

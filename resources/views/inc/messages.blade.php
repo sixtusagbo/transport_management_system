@@ -18,7 +18,7 @@
 
 @if (session('error'))
     <div class="alert alert-danger">
-        {{session('error')}}
-        <img src="close.soon" style="display:none;" onerror="(function(el){ setTimeout(function(){ el.parentNode.parentNode.removeChild(el.parentNode); },2000 ); })(this);" />
+        <h5 class="text-bold text-light">{{session('error')}}</h5>
+        <img src="close.soon" style="display:none;" onerror="(function(el){ setTimeout(function(){ el.parentNode.parentNode.removeChild(el.parentNode); },3000 ); })(this);" />
     </div>
 @endif

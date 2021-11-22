@@ -13,6 +13,8 @@
   <!-- Nucleo Icons -->
   <link href="{{ asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <link href="{{ asset('css/fontawesome.css')}}" rel="stylesheet" />
   <!-- Material Icons -->
   <link href="{{ asset('assets/css/material-icon.css')}}" rel="stylesheet">
   <!-- CSS Files -->
@@ -20,7 +22,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-secondary" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="{{request()->url()}}">
@@ -40,19 +42,11 @@
         </li>
         
         <li class="nav-item">
-          <a class="nav-link text-white " href="{{url('/passenger/book_trip')}}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">book_online</i>
-            </div>
-            <span class="nav-link-text ms-1">Book a trip</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link text-white " href="{{url('/passenger/send_cargo')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">cases</i>
+              <i class="fas fa-truck" style="font-size:1.4em;"></i>
             </div>
-            <span class="nav-link-text ms-1">Send a cargo</span>
+            <span class="nav-link-text ms-1">Send Cargo</span>
           </a>
         </li>
        
@@ -91,11 +85,6 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0">
-                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-              </a>
-            </li>
             
              
           </ul>
@@ -109,28 +98,7 @@
       @yield('content')
     </div>
   </main>
-  <!--   Core JS Files   -->
-  <script src="{{ asset('assets/js/core/popper.min.js')}}"></script>
-  <script src="{{ asset('assets/js/core/bootstrap.min.js')}}"></script>
-  <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
-  <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
- 
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
-  @if (request()->is('users'))
-    <script src="{{ asset('js/compressed.js')}}"></script>
-    <script src="{{ asset('js/main.js')}}"></script>
-  @endif
+  @include('inc.scripts')
 </body>
 
 </html>

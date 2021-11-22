@@ -31,18 +31,9 @@ class DestinationsController extends Controller
         }
         
         $destinations = Destination::orderBy('name', 'asc')->get();
-        // $vehicles = Vehicle::all();
-        // foreach ($vehicles as $vehicle) {
-        //     $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
-        // }
-        // $vehicles = $vehicles->pluck('forPluck', 'id');
-        
-        // $des = Destination::find(1);
-        // return $des->vehicles;
         
         $data = [
             'destinations' => $destinations,
-            // 'vehicles' => $vehicles,
         ];
         
         return view('admin.destinations')->with($data);
@@ -78,17 +69,6 @@ class DestinationsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showToRemove($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -98,19 +78,15 @@ class DestinationsController extends Controller
     {
         // return $id; //! Test case
         
-        $destination = Destination::find($id);
-        // $destination->vehicle = Vehicle::find($destination->vehicle_id);
-        // $destination->vehicle->full_description = $destination->vehicle->name.' '.$destination->vehicle->model;
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
         
-        // $vehicles = Vehicle::all();
-        // foreach ($vehicles as $vehicle) {
-        //     $vehicle->forPluck = $vehicle->name.' '.$vehicle->model.' '.$vehicle->plate_number;
-        // }
-        // $vehicles = $vehicles->pluck('forPluck', 'id');
+        $destination = Destination::find($id);
         
         $data = [
             'destination' => $destination,
-            // 'vehicles' => $vehicles,
         ];
         
         return view('admin.modify.edit_destination')->with($data);
@@ -127,16 +103,19 @@ class DestinationsController extends Controller
     {
         // return $request; //! Test case
         
+        // Check if user trying to access page is admin
+        if (auth()->user()->type != 1) {
+            return redirect('/dashboard')->with('error', 'Unauthorized Page');
+        }
+        
         // Validate request details
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'vehicle_id' => 'required',
             'amount' => 'required',
         ]);
         
         $destination = Destination::find($id);
         $destination->name = $data['name'];
-        $destination->vehicle_id = $data['vehicle_id'];
         $destination->amount = $data['amount'];
         $destination->save();
         
