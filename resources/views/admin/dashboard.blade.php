@@ -143,7 +143,6 @@
         </div>
       </div>
       
-      {{-- TODO: Add the trip bookings table with a createless crud --}}
     <div class="container">
       <div class="row justify-content-center mt-5">
         <div class="col-md-12">
@@ -158,46 +157,49 @@
                 @if (count($tickets) > 0)
                 <div class="table-responsive p-0">
                     <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ticket No</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Passenger</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Booked On</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Destination</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Depature date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tickets as $ticket)
-                        <tr>
-                          <td>
-                            <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm"><i class="fas fa-drone"></i> {{$ticket->ticket_no}}</h6>
-                                </div>
-                            </div>
-                          </td>
+                      <thead>
+                          <tr>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ticket No</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Passenger</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Booked On</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Destination</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Depature date</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($tickets as $ticket)
+                          <tr>
                             <td>
                               <div class="d-flex px-2 py-1">
                                   <div class="d-flex flex-column justify-content-center">
-                                      <h6 class="mb-0 text-sm">{{$ticket->user->full_name}}</h6>
-                                      <p class="text-xs text-secondary mb-0">{{$ticket->user->phone_number}}</p>
-                                  </div>  
+                                      <h6 class="mb-0 text-sm"><i class="fas fa-drone"></i> {{$ticket->ticket_no}}</h6>
+                                  </div>
                               </div>
                             </td>
-                            <td>
-                              <h6 class="mb-0 text-sm">{{$ticket->created_at->format('D jS M\, Y')}}</h6>
-                            </td>
-                            <td class="text-sm">
-                                <h6 class="text-sm font-weight-bold mb-0">{{$ticket->destination->name}}</h6>
-                            </td>
-                            <td class="text-sm">
-                                <h6 class="text-sm font-weight-bold mb-0">{{$ticket->depature_date}}</h6>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                              <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">{{$ticket->user->full_name}}</h6>
+                                        <p class="text-xs text-secondary mb-0">{{$ticket->user->phone_number}}</p>
+                                    </div>  
+                                </div>
+                              </td>
+                              <td>
+                                <h6 class="mb-0 text-sm">{{$ticket->created_at->format('D jS M\, Y')}}</h6>
+                              </td>
+                              <td class="text-sm">
+                                  <h6 class="text-sm font-weight-bold mb-0">{{$ticket->destination->name}}</h6>
+                              </td>
+                              <td class="text-sm">
+                                  <h6 class="text-sm font-weight-bold mb-0">{{Carbon\Carbon::create($ticket->depature_date)->format('D jS M\, Y')}}</h6>
+                              </td>
+                          </tr>
+                          @endforeach
+                      </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-2">
+                      {{ $tickets->links() }}
+                    </div>
                 </div>
                 @else
                     <div class="text-center">No ticket found!</div>
@@ -224,7 +226,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                      {!! Form::text('ticket_id', '', ['class' => 'form-control border ps-2', 'id' => 'UTNOselect', 'placeholder' => 'Enter ticket no to pay for a ticket']) !!}
+                      {!! Form::text('ticket_id', '', ['class' => 'form-control border ps-2', 'id' => 'findTicket', 'placeholder' => 'Enter ticket no to pay for a ticket']) !!}
                   </div>
                 </div>
                 <div class="col-md-6">

@@ -16,7 +16,7 @@ class CreateDestinationsTable extends Migration
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->decimal('amount', 5, 2);
+            $table->decimal('amount', 7, 2);
             $table->timestamps();
         });
     }

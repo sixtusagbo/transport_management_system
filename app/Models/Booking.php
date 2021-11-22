@@ -16,9 +16,11 @@ class Booking extends Model
      */
     protected $fillable = [
         'user_id', //! from login i.e auth->user->id
-        'depature_date',
+        'depature_date', //! dropdown
+        'depature_time', //! from dropdown
+        'destination_id',
+        'vehicle_id', //* To keep track of already booked seats
         'seat_no', //! Auto gen
-        'destination_id', //! Pick from dropdown
         'ticket_no', //! Auto Gen
     ];
     
@@ -31,10 +33,18 @@ class Booking extends Model
     }
     
     /**
+     * Get the vehicle associated with the booking.
+     */
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+    
+    /**
      * Get the destination associated with the booking.
      */
     public function destination()
     {
-        return $this->hasOne(Destination::class);
+        return $this->belongsTo(Destination::class);
     }
 }

@@ -17,9 +17,12 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->date('depature_date');
-            $table->tinyInteger('seat_no');
+            $table->time('depature_time');
             $table->integer('destination_id');
-            $table->uuid('ticket_no');
+            $table->integer('vehicle_id');
+            $table->tinyInteger('seat_no');
+            $table->string('ticket_no');
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }

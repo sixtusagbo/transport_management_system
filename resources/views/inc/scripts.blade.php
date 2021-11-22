@@ -128,11 +128,13 @@
   </script>
 @endif
 
-@if (request()->is('dashboard'))
+{{-- Admin Dashboard Scripts --}}
+@if (request()->is('dashboard') && Auth::user()->type == 1)
 <script>
   $('.loadTicket').click(function(e){
     e.preventDefault();
-    var id = $('#UTNOselect').val();
+    var id = $('#findTicket').val();
+    // return console.log(id);
     var url = '/trips/' + id + '/pay';
     var callback = function (response) {
       $('#payTicket').html(response);
@@ -140,6 +142,42 @@
 
     $.get(url, callback);
 
+  }); // load ticket ajax call
+</script>
+@endif
+
+{{-- Passenger Dashboard Scripts --}}
+@if (request()->is('dashboard') && Auth::user()->type == 0)
+<script>
+  $(document).ready(function () {
+    $('#bookTicketSubmit').hide();
+    $('#loadDestination').change(function (e) { 
+      e.preventDefault();
+      if ($('#loadDestination').val() != '') {
+        // console.log($('#loadDestination').val());
+        var id = $('#loadDestination').val();
+        var url = '/trips/' + id + '/destinationDetails';
+        var callback = function (response) {
+          $('#destinationDetails').html(response);
+        };
+
+        $.get(url, callback);
+
+        $('#bookTicketSubmit').show();
+      }
+    });
   });
+  
+  $('.viewTicketBtn').click(function(e){
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var url = '/trips/' + id;
+      var callback = function (response) {
+        $('#viewTicketModalBody').html(response);
+      };
+  
+      $.get(url, callback);
+  
+    }); // View ticket ajax call
 </script>
 @endif
