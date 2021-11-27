@@ -25,5 +25,19 @@ class CargoBooking extends Model
         'ticket_no', //! Auto Gen
     ];
     
-    //TODO: Relationships
+    /**
+     * Get the user(passenger) associated with the booking.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    /**
+     * Get the destination associated with the booking.
+     */
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }

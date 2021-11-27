@@ -181,3 +181,49 @@
     }); // View ticket ajax call
 </script>
 @endif
+
+@if (request()->is('passenger/send_cargo') && Auth::user()->type == 0)
+<script>
+  $(document).ready(function () {
+    $('#cargoError').hide();
+    $('#bookCargoSubmit').hide();
+    
+    var $answer = '';
+    $('#bookCargoCalculate').click(function(e){
+      if ($('#cargoName').val() == '' || $('#cargoNature').val() == '' || $('#cargoWeight').val() == '' || $('#cargoDestination').val() == '') {
+        // Display error on the modal
+        $('#cargoError').show();
+        return $('#cargoError').html('Please fill in all the fields!');
+      } else {
+        // Calculate and display the amount
+        var nature, weight, destination_id;
+        nature = $('#cargoNature').val();
+        weight = $('#cargoWeight').val();
+        destination_id = $('#cargoDestination').val();
+        var url = '/cargo_amount/' + nature + '/' + weight + '/' + destination_id;
+        var callback = function (response) {
+          $('#cargoDetails').html(response);
+        };
+    
+        $.get(url, callback);
+        
+        $('#bookCargoCalculate').hide();
+        $('#bookCargoSubmit').show();
+      }
+
+    }); // Calculate amount
+  });
+
+  $('.viewTicketBtn').click(function(e){
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var url = '/cargos/' + id;
+      var callback = function (response) {
+        $('#viewTicketModalBody').html(response);
+      };
+  
+      $.get(url, callback);
+  
+    }); // View ticket ajax call
+</script>
+@endif

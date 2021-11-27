@@ -6,8 +6,7 @@ use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\DestinationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SendCargoController;
-use App\Http\Controllers\BookATripController;
+use App\Http\Controllers\CargosController;
 use App\Http\Controllers\TripsController;
 
 /*
@@ -61,7 +60,7 @@ Route::post('/trips', [TripsController::class, 'store']);
 Route::get('/trips/{trip}/pay', [TripsController::class, 'payTicket']);
 Route::put('/trips/{trip}', [TripsController::class, 'update']);
 Route::get('/trips/{trip}/destinationDetails', [TripsController::class, 'getDestinationDetailsForBooking']);
-Route::get('/trips/{trip}', [TripsController::class, 'show']);
+Route::get('/trips/{trip}', [TripsController::class, 'show'])->name('trip');
 
 // Authenticaton routes
 Auth::routes();
@@ -70,7 +69,7 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 //Passengers routes
-Route::get('/passenger/send_cargo', [SendCargoController::class, 'index']);
-Route::get('/passenger/book_trip', [BookATripController::class, 'index']);
-Route::post('/passenger/book_trip', [BookATripController::class, 'booking'])->name('book');
-Route::post('/passenger/send_cargo', [SendCargoController::class, 'cargo'])->name('cargo');
+Route::get('/passenger/send_cargo', [CargosController::class, 'index']);
+Route::post('/passenger/send_cargo', [CargosController::class, 'store']);
+Route::get('/cargo_amount/{nature}/{weight}/{destination_id}', [CargosController::class, 'calculateCargoAmount']);
+Route::get('/cargos/{cargo}', [CargosController::class, 'show'])->name('cargo');

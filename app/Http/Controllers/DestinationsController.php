@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destination;
-use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class DestinationsController extends Controller

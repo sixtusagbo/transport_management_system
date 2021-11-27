@@ -23,6 +23,7 @@ class CreateCargoBookingsTable extends Migration
             $table->decimal('amount', 7, 2);
             $table->date('delivery_date');
             $table->uuid('ticket_no');
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }

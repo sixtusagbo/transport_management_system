@@ -93,7 +93,6 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      {{-- <h4 class="display-2">Passenger Dashboard</h4> --}}
       @include('inc.messages')
       @yield('content')
     </div>

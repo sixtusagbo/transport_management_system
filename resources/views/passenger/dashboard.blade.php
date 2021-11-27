@@ -10,8 +10,8 @@
                 <div>
                   <h6 class="text-capitalize text-wrap">Trips</h6>
                   <p class="text-sm mb-0">
-                    <i class="fa fa-check text-info" aria-hidden="true"></i>
                     @if ($todayTickets->count() > 0)
+                      <i class="fa fa-check text-info" aria-hidden="true"></i>
                       <span class="font-weight-bold ms-1">{{$todayTickets->count()}} booked today</span>
                     @endif
                   </p>
@@ -116,7 +116,7 @@
 <div class="modal fade" id="viewTicketModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
-          <div class="modal-body" id="viewTicketModalBody">
+          <div class="modal-body p-0" id="viewTicketModalBody">
             <div class="d-flex justify-content-between mb-2">
               {{-- AJAX --}}
             </div>
