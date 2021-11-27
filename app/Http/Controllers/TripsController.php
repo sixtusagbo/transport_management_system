@@ -69,7 +69,7 @@ class TripsController extends Controller
         
         $ticket->depature = $depatureDateTime;
         
-        return view('passenger.show_ticket')->with('ticket', $ticket);
+        return view('passenger.plugins.show_ticket')->with('ticket', $ticket);
     }
 
     /**
