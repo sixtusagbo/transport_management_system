@@ -46,8 +46,11 @@ class TripsController extends Controller
         ]);
         
         $vehicle->update(); //* Update the ticket vehicle
+
+        $ticket = Booking::latest()->first();
+        $ticket->type = 'trip';
         
-        return redirect('/dashboard')->with('success', 'Ticket booked successfully');
+        return redirect('/print_trip/'.$ticket->id)->with('ticket', $ticket);
     }
 
     /**
@@ -167,5 +170,29 @@ class TripsController extends Controller
         $random = 'PEACE'.$random;
         
         return $random;
+    }
+
+    /**
+     * Print the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id)
+    {
+        // return $id;
+        
+        $ticket = Booking::find($id);
+        $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
+
+        $ticket->depature_date = Carbon::create($ticket->depature_date)->format('D jS M\, Y');
+        $ticket->depature_time = Carbon::create($ticket->depature_time)->format('h:i A');
+        $depatureDateTime = $ticket->depature_date.' by '.$ticket->depature_time;
+        $ticket->destination->amount = number_format($ticket->destination->amount, 2, '.', ',');
+        $ticket->depature = $depatureDateTime;
+
+        $ticket->type = 'trip';
+        
+        return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
     }
 }

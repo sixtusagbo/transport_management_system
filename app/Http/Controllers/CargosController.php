@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\CargoBooking;
 use App\Models\Destination;
 use App\Models\User;
@@ -80,7 +81,10 @@ class CargosController extends Controller
         $cargo->ticket_no = $utno;
         $cargo->save();
         
-        return redirect('/passenger/send_cargo')->with('success', 'Cargo booked successfully');
+        $ticket = CargoBooking::latest()->first();
+        $ticket->type = 'cargo';
+        
+        return redirect('/print_cargo/'.$ticket->id)->with('ticket', $ticket);
     }
 
     /**
@@ -128,5 +132,23 @@ class CargosController extends Controller
         $ticket->amount = number_format($ticket->amount, 2, '.', ',');
         
         return view('passenger.plugins.show_ticket')->with('ticket', $ticket);
+    }
+
+    /**
+     * Print the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id)
+    {
+        // return $id;
+        
+        $ticket = CargoBooking::find($id);
+        $ticket->delivery_date = Carbon::create($ticket->delivery_date)->format('D jS M\, Y');
+        $ticket->amount = number_format($ticket->amount, 2, '.', ',');
+        $ticket->type = 'cargo';
+        
+        return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
     }
 }

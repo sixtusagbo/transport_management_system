@@ -60,7 +60,8 @@ Route::post('/trips', [TripsController::class, 'store']);
 Route::get('/trips/{trip}/pay', [TripsController::class, 'payTicket']);
 Route::put('/trips/{trip}', [TripsController::class, 'update']);
 Route::get('/trips/{trip}/destinationDetails', [TripsController::class, 'getDestinationDetailsForBooking']);
-Route::get('/trips/{trip}', [TripsController::class, 'show'])->name('trip');
+Route::get('/trips/{trip}', [TripsController::class, 'show'])->name('show_trip');
+Route::get('/print_trip/{trip}', [TripsController::class, 'print'])->name('print_trip');
 
 // Authenticaton routes
 Auth::routes();
@@ -72,4 +73,5 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 Route::get('/passenger/send_cargo', [CargosController::class, 'index']);
 Route::post('/passenger/send_cargo', [CargosController::class, 'store']);
 Route::get('/cargo_amount/{nature}/{weight}/{destination_id}', [CargosController::class, 'calculateCargoAmount']);
-Route::get('/cargos/{cargo}', [CargosController::class, 'show'])->name('cargo');
+Route::get('/cargos/{cargo}', [CargosController::class, 'show'])->name('show_cargo');
+Route::get('/print_cargo/{cargo}', [CargosController::class, 'print'])->name('print_cargo');
