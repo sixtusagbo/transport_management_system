@@ -41,14 +41,17 @@ class DashboardController extends Controller
         $administrators = User::where('type', 1)->get();
         $cargos = CargoBooking::all();
         $tickets = Booking::latest()->paginate(5);
+        $cargo_tickets = CargoBooking::latest()->paginate(5);
         $userTickets = $user->bookings;
         $userTicketsBookedToday = $user->bookings()->whereDate('created_at', Carbon::today())->get();
         
         foreach ($tickets as $ticket) {
             $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
         }
-        // pluck necessary data for ticket
-        $pluckTicketNo = $tickets->pluck('ticket_no', 'ticket_no');
+
+        foreach ($cargo_tickets as $ticket) {
+            $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
+        }
         
         $adminData = [
             'drivers' => $drivers,
@@ -60,7 +63,7 @@ class DashboardController extends Controller
             'administrators' => $administrators,
             'cargos' => $cargos,
             'tickets' => $tickets,
-            'pluckTicketNo' => $pluckTicketNo,
+            'cargo_tickets' => $cargo_tickets,
         ];
         
         // Modify $userTickets

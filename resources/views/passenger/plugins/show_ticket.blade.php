@@ -49,11 +49,11 @@
   </div>
   <div class="align-self-end">
     @if (request()->routeIs('show_trip'))
-      <a href="/print_trip/{{$ticket->id}}" class="btn btn-success btn-fill pull-right">PRINT</a>
+      <a href="/print_trip/{{$ticket->id}}" target="_blank" class="btn btn-success btn-fill pull-right">PRINT</a>
     @endif
 
     @if (request()->routeIs('show_cargo'))
-      <a href="/print_cargo/{{$ticket->id}}" class="btn btn-success btn-fill pull-right">PRINT</a>
+      <a href="/print_cargo/{{$ticket->id}}" target="_blank" class="btn btn-success btn-fill pull-right">PRINT</a>
     @endif
   </div>
 </div>
