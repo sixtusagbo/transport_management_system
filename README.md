@@ -6,9 +6,28 @@ A transport management system that takes care of booking and payment of tickets,
 
 ![Screenshot](https://raw.githubusercontent.com/sixtusagbo/transport_management_system/main/screenshot.png)
 
+## Table of Content
+* [Overview](#transport-management-system)
+* [Framework](#framework)
+* [Features](#features)
+* [Installation](#installation)
+* [Contributing](#contributing)
+
 ## Framework
 
 This project was built with Laravel 8.68.1
+
+## Features
+The current features supported include:
+- User (Passenger and Admin)
+- Booking of bus seats
+- Cargo booking
+- Driver
+- Vehicle
+- Ticket number
+#### **Planned Features**
+- Barcode
+- Payment System
 
 ## Installation
 
