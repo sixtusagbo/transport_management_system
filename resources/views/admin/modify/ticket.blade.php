@@ -1,6 +1,8 @@
 {{-- {{$ticket}} --}}
-@if ($ticket->isPaid)
-    <div class="alert alert-danger text-light">Ticket No <span class="badge badge-sm bg-gradient-dark">{{$ticket->ticket_no}}</span> has been paid. Please enter ticket number of an unpaid ticket.</div>
+@if ($ticket->is_paid)
+    <div class="alert alert-danger text-light">Ticket No <span
+            class="badge badge-sm bg-gradient-dark">{{ $ticket->ticket_no }}</span> has been paid. Please enter ticket
+        number of an unpaid ticket.</div>
 @else
     <div class="d-flex flex-column justify-content-center">
         <div id="ticket-details">
@@ -21,7 +23,7 @@
                 </tbody>
             </table>
         </div>
-        <form role="form" method="POST" action="{{ url('/trips/'. $ticket->id) }}" id="payTicketForm">
+        <form role="form" method="POST" action="{{ url('/trips/' . $ticket->id) }}" id="payTicketForm">
             @csrf
             <input type="hidden" name="ticket_no" value="{{ $ticket->ticket_no }}">
             <input type="hidden" name="is_paid" value="1">
@@ -29,7 +31,8 @@
         </form>
         <div class="row mt-3">
             <div class="col-md-12 d-flex justify-content-center">
-                <button class="btn btn-sm btn-primary" onclick="$('#payTicketForm').submit()"> Pay &#8358;{{number_format(($ticket->destination->amount), 2, '.', ',')}}</button>
+                <button class="btn btn-sm btn-primary" onclick="$('#payTicketForm').submit()"> Pay
+                    &#8358;{{ number_format($ticket->destination->amount, 2, '.', ',') }}</button>
             </div>
         </div>
     </div>
