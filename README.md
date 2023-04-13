@@ -66,6 +66,10 @@ npm run dev
 ```bash
 php artisan migrate
 ```
+**OR [Optional] Start off with dummy data from [faker](https://github.com/FakerPHP/Faker)**
+```bash
+php artisan migrate --seed
+```
 
 #### Create symlink to storage
 ```bash
