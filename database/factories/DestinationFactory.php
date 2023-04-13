@@ -14,7 +14,7 @@ class DestinationFactory extends Factory
     public function definition()
     {
         return [
-            "name" => $this->faker->city() . 'to' . $this->faker->city(),
+            "name" => $this->faker->city() . ' to ' . $this->faker->city(),
             "amount" => $this->faker->numberBetween(4000, 17000)
         ];
     }

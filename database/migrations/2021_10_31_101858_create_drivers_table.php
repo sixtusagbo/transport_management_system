@@ -23,6 +23,7 @@ class CreateDriversTable extends Migration
             $table->tinyText('state');
             $table->tinyText('lga');
             $table->tinyInteger('experience');
+            $table->integer('vehicle_id')->nullable();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class CreateVehiclesTable extends Migration
             $table->string('plate_number')->unique();
             $table->tinyInteger('no_of_seats');
             $table->tinyInteger('status')->default(0);
-            $table->integer('driver_id')->unique();
+            $table->integer('driver_id');
             $table->integer('destination_id');
             $table->time('depature_time');
             $table->tinyInteger('temp_seats')->default(0);

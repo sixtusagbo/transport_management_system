@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 'middle_name' => 'Miracle',
                 'phone_number' => '07080854254',
                 'type' => 1,
+                'gender' => 'Male',
             ]);
 
             \App\Models\User::factory()->create([
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'Agbo',
                 'middle_name' => 'Chetachi',
                 'phone_number' => '+1-602-974-2248',
+                'gender' => 'Male',
             ]);
 
             \App\Models\User::factory(4)->create();

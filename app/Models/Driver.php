@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Driver extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,8 +23,9 @@ class Driver extends Model
         'state',
         'lga',
         'experience',
+        'vehicle_id',
     ];
-    
+
     /**
      * Get the vehicle that owns the phone.
      */

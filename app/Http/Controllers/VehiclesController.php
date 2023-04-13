@@ -19,7 +19,7 @@ class VehiclesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -31,27 +31,27 @@ class VehiclesController extends Controller
         if (auth()->user()->type != 1) {
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
-        
+
         $vehicles = Vehicle::all();
         foreach ($vehicles as $vehicle) {
             $vehicle->driver = Driver::find($vehicle->driver_id);
-            $vehicle->driver->full_name = $vehicle->driver->first_name.' '.$vehicle->driver->last_name;
+            $vehicle->driver->full_name = $vehicle->driver->first_name . ' ' . $vehicle->driver->last_name;
         }
         // Fetching drivers with Eloquent
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            $driver->forPluck = $driver->first_name.' '.$driver->last_name;
+            $driver->forPluck = $driver->first_name . ' ' . $driver->last_name;
         }
         $drivers = $drivers->pluck('forPluck', 'id');
         // Fetching destinations with Eloquent
         $destinations = Destination::pluck('name', 'id');
-        
+
         $data = [
             'drivers' => $drivers,
             'vehicles' => $vehicles,
             'destinations' => $destinations,
         ];
-        
+
         return view('admin.vehicles', compact('drivers'))->with($data);
     }
 
@@ -64,12 +64,12 @@ class VehiclesController extends Controller
     public function store(Request $request)
     {
         // return $request; //! Test Case
-        
+
         // Check if user trying to access page is admin
         if (auth()->user()->type != 1) {
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
-        
+
         // Validate request details
         $newVehicle = $request->validate([
             'name' => 'required',
@@ -81,7 +81,7 @@ class VehiclesController extends Controller
             'depature_time' => 'required|date_format:H:i',
         ]);
         // return $newVehicle; //! Test Case
-        
+
         $vehicle = new Vehicle();
         $vehicle->name = $newVehicle['name'];
         $vehicle->model = $newVehicle['model'];
@@ -91,7 +91,11 @@ class VehiclesController extends Controller
         $vehicle->destination_id = $newVehicle['destination_id'];
         $vehicle->depature_time = $newVehicle['depature_time'];
         $vehicle->save();
-        
+
+        // Update the Driver
+        $driver = Driver::find($vehicle->driver_id);
+        $driver->vehicle_id = $vehicle->id;
+
         return redirect('/vehicles')->with('success', 'A new vehicle was successfully added!');
     }
 
@@ -104,7 +108,7 @@ class VehiclesController extends Controller
     public function showToRemove($id)
     {
         $vehicle = Vehicle::find($id);
-        
+
         return view('admin.modify.delete_vehicle')->with('vehicle', $vehicle);
     }
 
@@ -117,7 +121,7 @@ class VehiclesController extends Controller
     public function edit($id)
     {
         // return $id; //! Test case
-        
+
         $vehicle = Vehicle::find($id);
         //* Important: 0 - Idle, 1 - Loading, 2 - Active
         switch ($vehicle->status) {
@@ -134,22 +138,22 @@ class VehiclesController extends Controller
                 null;
                 break;
         }
-        
+
         // Fetching drivers with Eloquent
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            $driver->forPluck = $driver->first_name.' '.$driver->last_name;
+            $driver->forPluck = $driver->first_name . ' ' . $driver->last_name;
         }
         $drivers = $drivers->pluck('forPluck', 'id');
         // Fetching destinations with Eloquent
         $destinations = Destination::pluck('name', 'id');
-        
+
         $data = [
-         'vehicle' => $vehicle,
-         'drivers' => $drivers,
-         'destinations' => $destinations,
+            'vehicle' => $vehicle,
+            'drivers' => $drivers,
+            'destinations' => $destinations,
         ];
-        
+
         return view('admin.modify.edit_vehicle')->with($data);
     }
 
@@ -163,14 +167,14 @@ class VehiclesController extends Controller
     public function update(Request $request, $id)
     {
         // return $request; //! Test case
-        
+
         // Check if user trying to access page is admin
         if (auth()->user()->type != 1) {
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
-        
+
         $vehicle = Vehicle::find($id);
-        
+
         // Validate request details
         $data = $request->validate([
             'plate_number' => 'required|min:7|max:8|alpha_num',
@@ -180,7 +184,7 @@ class VehiclesController extends Controller
             'depature_time' => 'required',
         ]);
         // return $data; //! Test case
-        
+
         // return $data; //! Test case
         $vehicle->plate_number = $data['plate_number'];
         $vehicle->no_of_seats = $data['seats'];
@@ -188,8 +192,8 @@ class VehiclesController extends Controller
         $vehicle->destination_id = $data['destination'];
         $vehicle->depature_time = $data['depature_time'];
         $vehicle->update();
-        
-        return redirect('/vehicles')->with('success', 'Vehicle with plate number '. $data['plate_number'] .' updated!');
+
+        return redirect('/vehicles')->with('success', 'Vehicle with plate number ' . $data['plate_number'] . ' updated!');
     }
 
     /**
@@ -207,7 +211,7 @@ class VehiclesController extends Controller
 
         $vehicle = Vehicle::find($id);
         $vehicle->delete();
-        
+
         return redirect('/vehicles')->with('success', 'Vehicle Removed!');
     }
 }

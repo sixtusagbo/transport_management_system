@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         if (App::environment('local')) {
             \App\Models\Driver::factory(5)->create();
             \App\Models\Destination::factory(5)->create();
+            \App\Models\Vehicle::factory(5)->create();
         }
 
         $this->call([
