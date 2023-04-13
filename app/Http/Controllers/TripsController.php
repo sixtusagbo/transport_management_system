@@ -19,7 +19,7 @@ class TripsController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        
+
         $data = $this->validate($request, [
             'depature_date' => ['required', 'date'],
             'destination_id' => ['required'],
@@ -27,14 +27,12 @@ class TripsController extends Controller
         ], [], [
             'vehicle_id' => 'vehicle',
         ]);
-        
+
         // Get the selected vehicle for the ticket
         $vehicle = Vehicle::find($data['vehicle_id']);
         $vehicle->temp_seats += 1; // Determine the seat_no
         // return $vehicle->temp_seats; //! Test Case
-        
-        $utno = self::UTNO(); // Get unique ticket no
-        
+
         Booking::create([
             'user_id' => auth()->user()->id,
             'depature_date' => $data['depature_date'],
@@ -42,15 +40,15 @@ class TripsController extends Controller
             'destination_id' => $data['destination_id'],
             'vehicle_id' => $data['vehicle_id'],
             'seat_no' => $vehicle->temp_seats,
-            'ticket_no' => $utno,
+            'ticket_no' => $this->generateUniqueTicketNumber(),
         ]);
-        
+
         $vehicle->update(); //* Update the ticket vehicle
 
         $ticket = Booking::latest()->first();
         $ticket->type = 'trip';
-        
-        return redirect('/print_trip/'.$ticket->id)->with('ticket', $ticket);
+
+        return redirect('/print_trip/' . $ticket->id)->with('ticket', $ticket);
     }
 
     /**
@@ -62,16 +60,16 @@ class TripsController extends Controller
     public function show($id)
     {
         // return $id;
-        
+
         $ticket = Booking::find($id);
-        $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
+        $ticket->user->full_name = $ticket->user->first_name . ' ' . $ticket->user->middle_name . ' ' . $ticket->user->last_name;
         $ticket->depature_date = Carbon::create($ticket->depature_date)->format('D jS M\, Y');
         $ticket->depature_time = Carbon::create($ticket->depature_time)->format('h:i A');
-        $depatureDateTime = $ticket->depature_date.' by '.$ticket->depature_time;
+        $depatureDateTime = $ticket->depature_date . ' by ' . $ticket->depature_time;
         $ticket->destination->amount = number_format($ticket->destination->amount, 2, '.', ',');
-        
+
         $ticket->depature = $depatureDateTime;
-        
+
         return view('passenger.plugins.show_ticket')->with('ticket', $ticket);
     }
 
@@ -85,21 +83,21 @@ class TripsController extends Controller
     public function update(Request $request, $id)
     {
         // return $id; //! Test Case
-        
+
         // Check if user trying to access page is admin
         if (auth()->user()->type != 1) {
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
-        
+
         $data = $this->validate($request, [
             'is_paid' => 'required|boolean',
         ]);
-        
+
         $ticket = Booking::find($id);
         $ticket->is_paid = $data['is_paid'];
         $ticket->update();
-        
-        return redirect('/dashboard')->with('success', 'Payment successful for ticket no '.$request->ticket_no);
+
+        return redirect('/dashboard')->with('success', 'Payment successful for ticket no ' . $request->ticket_no);
     }
 
     //TODO: Add condition for automatic deleting of ticket if its not paid after a month from it's created_at date
@@ -113,7 +111,7 @@ class TripsController extends Controller
     {
         //
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -123,19 +121,18 @@ class TripsController extends Controller
     public function payTicket($ticket_no)
     {
         // return $ticket_no; //! Test case
-        
+
         // Check if user trying to access page is admin
         if (auth()->user()->type != 1) {
             return redirect('/dashboard')->with('error', 'Unauthorized Page');
         }
-        
+
         $ticket = Booking::where('ticket_no', $ticket_no)->first();
         // return $ticket; //! Test case
-        // $ticket->destination = Destination::find($ticket->destination_id);
-        
+
         return view('admin.modify.ticket')->with('ticket', $ticket);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -145,31 +142,43 @@ class TripsController extends Controller
     public function getDestinationDetailsForBooking($id)
     {
         // return $id; //! Test case
-        
+
         $destination = Destination::find($id);
         $vehicles = $destination->vehicles->pluck('plate_number', 'id');
-        
+
         $data = [
             'destination' => $destination,
             'vehicles' => $vehicles,
         ];
-        
+
         return view('passenger.destinationDetails')->with($data);
     }
-    
+
     /**
      * Automatically generate a Unique Ticket Number
      *
      * @return $random
      */
-    public static function UTNO() {
-        $random = '';
-        for ($i = 0; $i < 5; $i++) {
-          $random .= rand(0, 1) ? rand(1, 9) : chr(rand(ord('A'), ord('Z')));
+    public function generateUniqueTicketNumber()
+    {
+        $randomNumber = mt_rand(1000000000, 9999999999);
+
+        if ($this->ticketNumberExists($randomNumber)) {
+            $randomNumber = mt_rand(1000000000, 9999999999);
         }
-        $random = 'PEACE'.$random;
-        
-        return $random;
+
+        return $randomNumber;
+    }
+
+    /**
+     * Automatically generate a Unique Ticket Number
+     *
+     * @param int $number
+     * @return bool $result
+     */
+    public function ticketNumberExists($number)
+    {
+        return Booking::where('ticket_no', $number)->exists();
     }
 
     /**
@@ -181,18 +190,18 @@ class TripsController extends Controller
     public function print($id)
     {
         // return $id;
-        
+
         $ticket = Booking::find($id);
-        $ticket->user->full_name = $ticket->user->first_name.' '.$ticket->user->middle_name.' '.$ticket->user->last_name;
+        $ticket->user->full_name = $ticket->user->first_name . ' ' . $ticket->user->middle_name . ' ' . $ticket->user->last_name;
 
         $ticket->depature_date = Carbon::create($ticket->depature_date)->format('D jS M\, Y');
         $ticket->depature_time = Carbon::create($ticket->depature_time)->format('h:i A');
-        $depatureDateTime = $ticket->depature_date.' by '.$ticket->depature_time;
+        $depatureDateTime = $ticket->depature_date . ' by ' . $ticket->depature_time;
         $ticket->destination->amount = number_format($ticket->destination->amount, 2, '.', ',');
         $ticket->depature = $depatureDateTime;
 
         $ticket->type = 'trip';
-        
+
         return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
     }
 }

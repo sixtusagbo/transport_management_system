@@ -25,8 +25,8 @@ The current features supported include:
 - Driver
 - Vehicle
 - Ticket number
-#### **Planned Features**
 - Barcode
+#### **Planned Features**
 - Payment System
 
 ## Installation

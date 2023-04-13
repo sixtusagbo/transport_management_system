@@ -27,7 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Ticket No</th>
+                                                Ticket Number</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Booked On</th>
@@ -51,8 +51,12 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm"><i class="fas fa-drone"></i>
-                                                                {{ $ticket->ticket_no }}</h6>
+                                                            <h6 class="mb-0 text-sm">
+                                                                {!! DNS1D::getBarcodeHTML("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
+                                                                <p class="text-center fw-bold">
+                                                                    {{ $ticket->ticket_no }}
+                                                                </p>
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                 </td>
