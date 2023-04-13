@@ -1,7 +1,11 @@
 <div class="d-flex flex-column p-2" style="border-left:6px dashed blue;background-color: lightgrey;">
     <div class="mb-3 align-self-center">
         <img class="ps-2 float-left w-30" src="{{ asset('images/peacefooter.png') }}" alt="">
-        <span class="lead text-info">TICKET NO: <span class="font-weight-bold">{{ $ticket->ticket_no }}</span></span>
+        @if ($ticket->is_paid)
+            <span class="lead text-info">{!! DNS1D::getBarcodeSVG("$ticket->ticket_no", 'PHARMA') !!}</span>
+        @else
+            <span class="lead text-info">TICKET: </span>
+        @endif
     </div>
     @if (request()->routeIs('show_trip'))
         @if ($ticket->is_paid)
@@ -31,7 +35,7 @@
             </div>
         @else
             <div class="d-flex justify-content-center mb-2">
-                {!! DNS1D::getBarcodeHTML("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
+                {!! DNS1D::getBarcodeSVG("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
             </div>
         @endif
         <div class="align-self-center">
@@ -73,7 +77,7 @@
             </div>
         @else
             <div class="d-flex justify-content-center mb-2">
-                {!! DNS1D::getBarcodeHTML("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
+                {!! DNS1D::getBarcodeSVG("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
             </div>
         @endif
         <div class="align-self-center">

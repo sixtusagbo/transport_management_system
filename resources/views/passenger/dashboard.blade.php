@@ -52,10 +52,7 @@
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">
-                                                                {!! DNS1D::getBarcodeHTML("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
-                                                                <p class="text-center fw-bold">
-                                                                    {{ $ticket->ticket_no }}
-                                                                </p>
+                                                                {!! DNS1D::getBarcodeSVG("$ticket->ticket_no", 'PHARMA', 2, 60) !!}
                                                             </h6>
                                                         </div>
                                                     </div>

@@ -37,15 +37,14 @@ class CargosController extends Controller
         $user = User::find($user_id);
         $userCargosBookedToday = $user->cargoBookings()->whereDate('created_at', Carbon::today())->get();
         $userCargoTickets = $user->cargoBookings;
-        
+
         $data = [
             'tickets' => $userCargoTickets,
             'todayCargos' => $userCargosBookedToday,
             'destinations' => Destination::pluck('name', 'id'),
         ];
-        
+
         return view('passenger.send_cargo')->with($data);
-    
     }
 
     /**
@@ -67,9 +66,9 @@ class CargosController extends Controller
         ], [], [
             'destination_id' => 'destination',
         ]);
-        
-        $utno = TripsController::UTNO(); // Get unique ticket no
-        
+
+        $tripsController = new TripsController();
+
         $cargo = new CargoBooking();
         $cargo->name = $data['name'];
         $cargo->nature = $data['nature'];
@@ -78,13 +77,13 @@ class CargosController extends Controller
         $cargo->destination_id = $data['destination_id'];
         $cargo->amount = $data['amount'];
         $cargo->delivery_date = Carbon::now()->addDay();
-        $cargo->ticket_no = $utno;
+        $cargo->ticket_no = $tripsController->generateUniqueTicketNumber();
         $cargo->save();
-        
+
         $ticket = CargoBooking::latest()->first();
         $ticket->type = 'cargo';
-        
-        return redirect('/print_cargo/'.$ticket->id)->with('ticket', $ticket);
+
+        return redirect('/print_cargo/' . $ticket->id)->with('ticket', $ticket);
     }
 
     /**
@@ -103,7 +102,7 @@ class CargosController extends Controller
         if ($nature == 'Fragile') {
             $amount += 200;
         }
-        
+
         // check weight of cargo
         if ($weight > 5) {
             $cost_weight = $weight - 5;
@@ -126,11 +125,11 @@ class CargosController extends Controller
     public function show($id)
     {
         // return $id;
-        
+
         $ticket = CargoBooking::find($id);
         $ticket->delivery_date = Carbon::create($ticket->delivery_date)->format('D jS M\, Y');
         $ticket->amount = number_format($ticket->amount, 2, '.', ',');
-        
+
         return view('passenger.plugins.show_ticket')->with('ticket', $ticket);
     }
 
@@ -143,12 +142,12 @@ class CargosController extends Controller
     public function print($id)
     {
         // return $id;
-        
+
         $ticket = CargoBooking::find($id);
         $ticket->delivery_date = Carbon::create($ticket->delivery_date)->format('D jS M\, Y');
         $ticket->amount = number_format($ticket->amount, 2, '.', ',');
         $ticket->type = 'cargo';
-        
+
         return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
     }
 }
