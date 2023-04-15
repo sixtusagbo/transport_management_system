@@ -26,8 +26,9 @@ The current features supported include:
 - Vehicle
 - Ticket number
 - Barcode
+- Payment System - [Paystack](https://paystack.com/)
 #### **Planned Features**
-- Payment System
+- Automatic deleting of tickets unpaid after 1 month (with cronjobs)
 
 ## Installation
 

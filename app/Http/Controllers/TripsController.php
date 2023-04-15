@@ -7,6 +7,8 @@ use App\Models\Destination;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class TripsController extends Controller
 {
@@ -33,7 +35,7 @@ class TripsController extends Controller
         $vehicle->temp_seats += 1; // Determine the seat_no
         // return $vehicle->temp_seats; //! Test Case
 
-        Booking::create([
+        $ticket = Booking::create([
             'user_id' => auth()->user()->id,
             'depature_date' => $data['depature_date'],
             'depature_time' => $vehicle->depature_time,
@@ -45,10 +47,83 @@ class TripsController extends Controller
 
         $vehicle->update(); //* Update the ticket vehicle
 
-        $ticket = Booking::latest()->first();
-        $ticket->type = 'trip';
+        // Redirect to payment view with ticket_id
+        return redirect("/trips/" . $ticket->id . "/pay_paystack");
+    }
 
-        return redirect('/print_trip/' . $ticket->id)->with('ticket', $ticket);
+    /**
+     * Display paystack payment processing view.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pay_paystack($id)
+    {
+        $ticket = Booking::find($id);
+
+        $ticket->transaction_ref = Str::uuid();
+        $ticket->update();
+
+        $data = [
+            "transaction_ref" => $ticket->transaction_ref,
+            "amount" => $ticket->destination->amount,
+            "ticket_id" => $ticket->id,
+            "ticket_type" => 'trip',
+        ];
+
+        return view('passenger.pay_paystack')->with($data);
+    }
+
+    /**
+     * Verify paystack payment.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function verify_paystack(Request $request, int $id)
+    {
+        // Call paystack api
+        $url = 'https://api.paystack.co/transaction/verify/' . $request->reference;
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('app.paystack_key')
+        ])->get($url);
+        $result = $response->json();
+
+        // Verify transaction with result
+        $trip = Booking::find($id);
+        if ($result['data']['status'] == "success") {
+            $amount = $result['data']['amount'] / 100;
+            /* Divide the amount by hundred to get the actual amount
+            because paystack needs you to multiply by 100 when
+            making the payment to get nearest currency
+            */
+            $ref = $result['data']['reference'];
+            $currency = $result['data']['currency'];
+            $email = $result['data']['customer']['email'];
+
+            // check if details match
+            $referenceIsValid = $ref == $trip->transaction_ref;
+            $amountIsValid = $amount == $trip->destination->amount;
+            $currencyIsValid = $currency == "NGN";
+            $emailIsValid = $email == $trip->user->email;
+
+            if ($referenceIsValid && $amountIsValid && $currencyIsValid && $emailIsValid) {
+                // Wow, Valid!
+                // set trip as paid in storage
+                $trip->is_paid = true;
+                $trip->update();
+
+                // Redirect to print
+                return redirect('/print_trip/' . $trip->id)->with('ticket', $trip);
+            }
+
+            // Redirect to dashboard with error
+            return redirect()->route('dashboard')->with('error', 'Invalid payment, please contact our support.');
+        }
+
+        // Redirect to dashboard with error
+        return redirect()->route('dashboard')->with('error', 'Payment failed, please try again.');
     }
 
     /**

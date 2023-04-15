@@ -87,7 +87,13 @@
 </div>
 <div class="align-self-end">
     @if (request()->routeIs('show_trip'))
-        <a href="/print_trip/{{ $ticket->id }}" target="_blank" class="btn btn-success btn-fill pull-right">PRINT</a>
+        @if ($ticket->is_paid)
+            <a href="/print_trip/{{ $ticket->id }}" target="_blank"
+                class="btn btn-success btn-fill pull-right">PRINT</a>
+        @else
+            <a href="/trips/{{ $ticket->id }}/pay_paystack" class="btn btn-warning btn-fill pull-right"
+                target="_blank">PAY</a>
+        @endif
     @endif
 
     @if (request()->routeIs('show_cargo'))

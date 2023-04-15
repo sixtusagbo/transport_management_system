@@ -23,6 +23,7 @@ class CreateBookingsTable extends Migration
             $table->tinyInteger('seat_no');
             $table->string('ticket_no');
             $table->boolean('is_paid')->default(false);
+            $table->string('transaction_ref')->nullable();
             $table->timestamps();
         });
     }

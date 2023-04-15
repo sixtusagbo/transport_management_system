@@ -234,4 +234,15 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Config Aliases
+    |--------------------------------------------------------------------------
+    |
+    | Here is where I load the paystack secret key into the app config.
+    | [NOTE:] You have to provide the secret key in env
+    |
+    */
+    'paystack_key' => env('PAYSTACK_SECRET_KEY'),
+
 ];

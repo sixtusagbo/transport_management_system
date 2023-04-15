@@ -62,6 +62,8 @@ Route::put('/trips/{trip}', [TripsController::class, 'update']);
 Route::get('/trips/{trip}/destinationDetails', [TripsController::class, 'getDestinationDetailsForBooking']);
 Route::get('/trips/{trip}', [TripsController::class, 'show'])->name('show_trip');
 Route::get('/print_trip/{trip}', [TripsController::class, 'print'])->name('print_trip');
+Route::get('/trips/{trip}/pay_paystack', [TripsController::class, 'pay_paystack'])->name('pay_paystack');
+Route::get('/trips/{trip}/verify_paystack', [TripsController::class, 'verify_paystack'])->name('verify_paystack');
 
 // Authenticaton routes
 Auth::routes();

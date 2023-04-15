@@ -24,6 +24,7 @@ class CreateCargoBookingsTable extends Migration
             $table->date('delivery_date');
             $table->uuid('ticket_no');
             $table->boolean('is_paid')->default(false);
+            $table->string('transaction_ref')->nullable();
             $table->timestamps();
         });
     }
