@@ -55,8 +55,8 @@ class TripsController extends Controller
 
         $vehicle->update(); //* Update the ticket vehicle
 
-        // Redirect to payment view with ticket_id
-        return redirect("/pay_paystack/" . "trip/" . $ticket->id);
+        // Redirect to payment view with ticket id
+        return redirect("/pay_paystack/trip/" . $ticket->id);
     }
 
     /**

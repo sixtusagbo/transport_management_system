@@ -97,8 +97,13 @@
     @endif
 
     @if (request()->routeIs('show_cargo'))
-        <a href="/print_cargo/{{ $ticket->id }}" target="_blank"
-            class="btn btn-success btn-fill pull-right">PRINT</a>
+        @if ($ticket->is_paid)
+            <a href="/print/cargo/{{ $ticket->id }}" target="_blank"
+                class="btn btn-success btn-fill pull-right">PRINT</a>
+        @else
+            <a href="/pay_paystack/cargo/{{ $ticket->id }}" class="btn btn-warning btn-fill pull-right"
+                target="_blank">PAY</a>
+        @endif
     @endif
 </div>
 </div>

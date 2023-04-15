@@ -81,9 +81,9 @@ class CargosController extends Controller
         $cargo->save();
 
         $ticket = CargoBooking::latest()->first();
-        $ticket->type = 'cargo';
 
-        return redirect('/print_cargo/' . $ticket->id)->with('ticket', $ticket);
+        // Redirect to payment view with ticket id
+        return redirect("/pay_paystack/cargo/" . $ticket->id);
     }
 
     /**
