@@ -227,19 +227,3 @@
         }); // View ticket ajax call
     </script>
 @endif
-
-@if (request()->is('print_cargo/*'))
-    <script>
-        $(document).ready(function() {
-            window.print();
-        });
-    </script>
-@endif
-
-@if (request()->is('print_trip/*'))
-    <script>
-        $(document).ready(function() {
-            window.print();
-        });
-    </script>
-@endif

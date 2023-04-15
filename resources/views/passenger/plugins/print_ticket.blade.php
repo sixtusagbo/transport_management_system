@@ -90,3 +90,11 @@
     </div>
     </div>
 @endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            window.print();
+        });
+    </script>
+@endsection

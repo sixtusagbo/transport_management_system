@@ -7,11 +7,19 @@ use App\Models\Destination;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
 
 class TripsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,82 +56,7 @@ class TripsController extends Controller
         $vehicle->update(); //* Update the ticket vehicle
 
         // Redirect to payment view with ticket_id
-        return redirect("/trips/" . $ticket->id . "/pay_paystack");
-    }
-
-    /**
-     * Display paystack payment processing view.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function pay_paystack($id)
-    {
-        $ticket = Booking::find($id);
-
-        $ticket->transaction_ref = Str::uuid();
-        $ticket->update();
-
-        $data = [
-            "transaction_ref" => $ticket->transaction_ref,
-            "amount" => $ticket->destination->amount,
-            "ticket_id" => $ticket->id,
-            "ticket_type" => 'trip',
-        ];
-
-        return view('passenger.pay_paystack')->with($data);
-    }
-
-    /**
-     * Verify paystack payment.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function verify_paystack(Request $request, int $id)
-    {
-        // Call paystack api
-        $url = 'https://api.paystack.co/transaction/verify/' . $request->reference;
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('app.paystack_key')
-        ])->get($url);
-        $result = $response->json();
-
-        // Verify transaction with result
-        $trip = Booking::find($id);
-        if ($result['data']['status'] == "success") {
-            $amount = $result['data']['amount'] / 100;
-            /* Divide the amount by hundred to get the actual amount
-            because paystack needs you to multiply by 100 when
-            making the payment to get nearest currency
-            */
-            $ref = $result['data']['reference'];
-            $currency = $result['data']['currency'];
-            $email = $result['data']['customer']['email'];
-
-            // check if details match
-            $referenceIsValid = $ref == $trip->transaction_ref;
-            $amountIsValid = $amount == $trip->destination->amount;
-            $currencyIsValid = $currency == "NGN";
-            $emailIsValid = $email == $trip->user->email;
-
-            if ($referenceIsValid && $amountIsValid && $currencyIsValid && $emailIsValid) {
-                // Wow, Valid!
-                // set trip as paid in storage
-                $trip->is_paid = true;
-                $trip->update();
-
-                // Redirect to print
-                return redirect('/print_trip/' . $trip->id)->with('ticket', $trip);
-            }
-
-            // Redirect to dashboard with error
-            return redirect()->route('dashboard')->with('error', 'Invalid payment, please contact our support.');
-        }
-
-        // Redirect to dashboard with error
-        return redirect()->route('dashboard')->with('error', 'Payment failed, please try again.');
+        return redirect("/pay_paystack/" . "trip/" . $ticket->id);
     }
 
     /**
@@ -175,7 +108,6 @@ class TripsController extends Controller
         return redirect('/dashboard')->with('success', 'Payment successful for ticket no ' . $request->ticket_no);
     }
 
-    //TODO: Add condition for automatic deleting of ticket if its not paid after a month from it's created_at date
     /**
      * Remove the specified resource from storage.
      *
@@ -256,27 +188,5 @@ class TripsController extends Controller
         return Booking::where('ticket_no', $number)->exists();
     }
 
-    /**
-     * Print the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function print($id)
-    {
-        // return $id;
-
-        $ticket = Booking::find($id);
-        $ticket->user->full_name = $ticket->user->first_name . ' ' . $ticket->user->middle_name . ' ' . $ticket->user->last_name;
-
-        $ticket->depature_date = Carbon::create($ticket->depature_date)->format('D jS M\, Y');
-        $ticket->depature_time = Carbon::create($ticket->depature_time)->format('h:i A');
-        $depatureDateTime = $ticket->depature_date . ' by ' . $ticket->depature_time;
-        $ticket->destination->amount = number_format($ticket->destination->amount, 2, '.', ',');
-        $ticket->depature = $depatureDateTime;
-
-        $ticket->type = 'trip';
-
-        return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
-    }
+    //TODO: Add condition for automatic deleting of ticket if its not paid after a month from it's created_at date
 }

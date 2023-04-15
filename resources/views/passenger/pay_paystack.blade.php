@@ -18,7 +18,8 @@
                     window.location = "{{ route('dashboard') }}";
                 },
                 callback: function(response) {
-                    window.location = "{{ route('verify_paystack', $ticket_id) }}?reference=" +
+                    window.location =
+                        "{{ route('verify_paystack', ['type' => $ticket_type, 'id' => $ticket_id]) }}?reference=" +
                         response.reference;
                 }
             });

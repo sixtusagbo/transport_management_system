@@ -7,6 +7,7 @@ use App\Http\Controllers\DestinationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CargosController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TripsController;
 
 /*
@@ -61,9 +62,11 @@ Route::get('/trips/{trip}/pay', [TripsController::class, 'payTicket']);
 Route::put('/trips/{trip}', [TripsController::class, 'update']);
 Route::get('/trips/{trip}/destinationDetails', [TripsController::class, 'getDestinationDetailsForBooking']);
 Route::get('/trips/{trip}', [TripsController::class, 'show'])->name('show_trip');
-Route::get('/print_trip/{trip}', [TripsController::class, 'print'])->name('print_trip');
-Route::get('/trips/{trip}/pay_paystack', [TripsController::class, 'pay_paystack'])->name('pay_paystack');
-Route::get('/trips/{trip}/verify_paystack', [TripsController::class, 'verify_paystack'])->name('verify_paystack');
+
+// Payment routes
+Route::get('/pay_paystack/{type}/{id}', [PaymentController::class, 'pay_paystack'])->name('pay_paystack');
+Route::get('/verify_paystack/{type}/{id}', [PaymentController::class, 'verify_paystack'])->name('verify_paystack');
+Route::get('/print/{type}/{id}', [PaymentController::class, 'print'])->name('print_ticket');
 
 // Authenticaton routes
 Auth::routes();
@@ -76,4 +79,3 @@ Route::get('/passenger/send_cargo', [CargosController::class, 'index']);
 Route::post('/passenger/send_cargo', [CargosController::class, 'store']);
 Route::get('/cargo_amount/{nature}/{weight}/{destination_id}', [CargosController::class, 'calculateCargoAmount']);
 Route::get('/cargos/{cargo}', [CargosController::class, 'show'])->name('show_cargo');
-Route::get('/print_cargo/{cargo}', [CargosController::class, 'print'])->name('print_cargo');

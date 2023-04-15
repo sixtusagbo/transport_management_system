@@ -132,22 +132,4 @@ class CargosController extends Controller
 
         return view('passenger.plugins.show_ticket')->with('ticket', $ticket);
     }
-
-    /**
-     * Print the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function print($id)
-    {
-        // return $id;
-
-        $ticket = CargoBooking::find($id);
-        $ticket->delivery_date = Carbon::create($ticket->delivery_date)->format('D jS M\, Y');
-        $ticket->amount = number_format($ticket->amount, 2, '.', ',');
-        $ticket->type = 'cargo';
-
-        return view('passenger.plugins.print_ticket')->with('ticket', $ticket);
-    }
 }
