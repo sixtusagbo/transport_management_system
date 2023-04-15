@@ -10,7 +10,7 @@
 
         function payWithPaystack() {
             let handler = PaystackPop.setup({
-                key: 'pk_test_12421da34ba717d2c7ab2ce562718bc1bc1b3e53',
+                key: "{{ config('app.paystack.public_key') }}",
                 email: "{{ Auth::user()->email }}",
                 amount: {{ $amount * 100 }},
                 ref: "{{ $transaction_ref }}",

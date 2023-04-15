@@ -67,7 +67,7 @@ class PaymentController extends Controller
         // Call paystack api
         $url = 'https://api.paystack.co/transaction/verify/' . $request->reference;
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('app.paystack_key')
+            'Authorization' => 'Bearer ' . config('app.paystack.secret_key')
         ])->get($url);
         $result = $response->json();
 

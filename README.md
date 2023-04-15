@@ -42,6 +42,7 @@ git clone https://github.com/sixtusagbo/transport_management_system
 cp .env.example .env
 # Modify it
 ```
+*Put your PAYSTACK_SECRET_KEY and PAYSTACK_PUBLIC_KEY in env for payment to work*
 
 #### Generate app key
 ```bash
