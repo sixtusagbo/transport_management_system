@@ -4,7 +4,11 @@ A transport management system that takes care of booking and payment of tickets,
 
 [![License](https://img.shields.io/github/license/sixtusagbo/transport_management_system)](LICENSE)
 
-![Screenshot](https://raw.githubusercontent.com/sixtusagbo/transport_management_system/main/screenshot.png)
+- Admin Dashboard:
+![Admin Dashboard](https://raw.githubusercontent.com/sixtusagbo/transport_management_system/main/screenshot.png)
+
+- Passenger Dashboard:
+![Screenshot](https://raw.githubusercontent.com/sixtusagbo/transport_management_system/main/screenshot_passenger.png)
 
 ## Table of Content
 * [Overview](#transport-management-system)
